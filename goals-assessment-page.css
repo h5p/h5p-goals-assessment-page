@@ -1,0 +1,44 @@
+/* Goals assessment view*/
+.h5p-goals-assessment-page .goals-assessment-view {
+  text-align: center;
+}
+
+/* Goals counter */
+.h5p-goals-assessment-page .goals-assessment-view .assessment-counter {
+}
+
+/* Current goal */
+.h5p-goals-assessment-page .goals-assessment-view .assessment-counter span.goal-current {
+  padding: 0em 0.3em;
+}
+
+/* Counter delimiter */
+.h5p-goals-assessment-page .goals-assessment-view .assessment-counter span.goal-delimiter:before {
+  content: "/";
+}
+
+/* Max goal */
+.h5p-goals-assessment-page .goals-assessment-view .assessment-counter span.goal-max {
+  padding: 0em 0.3em;
+}
+
+/* Goal text */
+.h5p-goals-assessment-page .goals-assessment-view .assessment-goal {
+  padding: 1.5em 0em;
+}
+
+/* Rating container */
+.h5p-goals-assessment-page .goals-assessment-view .assessment-rating {
+  padding: 1em 0em;
+}
+
+.h5p-goals-assessment-page .goals-assessment-view .assessment-rating .rating-container {
+  display: inline-block;
+  padding: 0em 1em;
+  vertical-align: top;
+  max-width: 30%;
+}
+
+.h5p-goals-assessment-page .goals-assessment-view .assessment-rating span.rating-text {
+  display: block;
+}
