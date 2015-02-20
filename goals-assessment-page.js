@@ -17,11 +17,10 @@ H5P.GoalsAssessmentPage = (function ($) {
   function GoalsAssessmentPage(params, id) {
     this.$ = $(this);
     this.id = id;
-    var self = this;
 
     // Set default behavior.
     this.params = $.extend({}, {
-      title: '',
+      title: 'Goals assessment',
       description: '',
       counterText: 'Evaluation goals',
       lowRating: 'Learned little',
@@ -43,7 +42,7 @@ H5P.GoalsAssessmentPage = (function ($) {
 
     var goalsAssessmentTemplate =
       '<div class="goals-assessment-title">{{title}}</div>' +
-      '<div class="goals-assessment-description">{{description}}</div>'+
+      '<div class="goals-assessment-description">{{description}}</div>' +
       '<div class="goals-assessment-view"></div>';
 
     this.assessmentViewTemplate =
@@ -69,7 +68,7 @@ H5P.GoalsAssessmentPage = (function ($) {
               '<input type="radio" name="0" class="rating-box">' +
               '<span class="rating-text">{{highRating}}</span>' +
           '</div>' +
-        '</div>'+
+        '</div>' +
       '</div>';
 
     this.$inner = $container.addClass(MAIN_CONTAINER);
@@ -92,9 +91,17 @@ H5P.GoalsAssessmentPage = (function ($) {
   };
 
   /**
+   * Get page title
+   * @returns {String} page title
+   */
+  GoalsAssessmentPage.prototype.getTitle = function () {
+    return this.params.title;
+  };
+
+  /**
    * Updates internal list of assessment goals
    *
-   * @param {Array} goals Array of goals
+   * @param {Array} newGoals Array of goals
    */
   GoalsAssessmentPage.prototype.updateAssessmentGoals = function (newGoals) {
     var self = this;
@@ -112,14 +119,14 @@ H5P.GoalsAssessmentPage = (function ($) {
     // Remove all pages if last goals was empty
     self.$assessmentView.children().remove();
 
-    newGoals.forEach(function (goalsPage, pageIndex) {
+    newGoals.forEach(function (goalsPage) {
       goalsPage.forEach(function (goalInstance) {
         // Add all goals for this page.
-        self.$assessmentView
-          .append(Mustache
-            .render(self.assessmentViewTemplate,
-            $.extend({}, self.params, {noGoalsText: goalInstance.goalText()}))
-        );
+        self.$assessmentView.append(Mustache.render(self.assessmentViewTemplate,
+            $.extend({},
+              self.params,
+              {noGoalsText: goalInstance.goalText()}
+            )));
       });
     });
     self.currentGoals = newGoals.slice(0);
@@ -137,11 +144,16 @@ H5P.GoalsAssessmentPage = (function ($) {
     var $assessmentContainers = this.$assessmentView.children();
     var maxCount = $assessmentContainers.length;
 
-    if(isEmpty !== undefined && isEmpty) {
+    var setCounter = function ($parent, currentPage, maxPage) {
+      $('.goal-current', $parent).text(currentPage);
+      $('.goal-max', $parent).text(maxPage);
+    };
+
+    if (isEmpty !== undefined && isEmpty) {
       setCounter($assessmentContainers, 0, 0);
     } else {
       $assessmentContainers.each(function (containerIndex) {
-        setCounter($(this), containerIndex+1, maxCount);
+        setCounter($(this), containerIndex + 1, maxCount);
       });
     }
   };
@@ -185,7 +197,7 @@ H5P.GoalsAssessmentPage = (function ($) {
           }
         } else {
           // Find index of checked container, register it in Goal object
-          while(($correspondingContainer.length) && ($('.assessment-goal', $correspondingContainer).text() !== goalInstance.goalText())) {
+          while ($correspondingContainer.length && ($('.assessment-goal', $correspondingContainer).text() !== goalInstance.goalText())) {
             absoluteIndex += 1;
             $correspondingContainer = $assessmentContainers.eq(absoluteIndex);
           }
@@ -200,19 +212,7 @@ H5P.GoalsAssessmentPage = (function ($) {
         }
         absoluteIndex += 1;
       });
-    })
-  };
-
-  /**
-   * @private
-   * Used for changing the goal counter on for a specific goal.
-   * @param {jQuery} $parent
-   * @param {Number} currentPage
-   * @param {Number} maxPage
-   */
-  var setCounter = function ($parent, currentPage, maxPage) {
-    $('.goal-current', $parent).text(currentPage);
-    $('.goal-max', $parent).text(maxPage);
+    });
   };
 
   return GoalsAssessmentPage;
