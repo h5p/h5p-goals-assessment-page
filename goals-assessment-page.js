@@ -27,6 +27,7 @@ H5P.GoalsAssessmentPage = (function ($) {
       midRating: 'Learned something',
       highRating: 'Learned a lot',
       noGoalsText: 'You have not chosen any goals yet.',
+      helpTextLabel: 'Read more',
       helpText: 'Help text'
     }, params);
   }
@@ -41,7 +42,10 @@ H5P.GoalsAssessmentPage = (function ($) {
     this.currentGoals = [];
 
     var goalsAssessmentTemplate =
-      '<div class="goals-assessment-title">{{title}}</div>' +
+      '<div class="goals-assessment-header">' +
+      ' <div role="button" tabindex="1" class="goals-assessment-help-text">{{helpTextLabel}}</div>' +
+      ' <div class="goals-assessment-title">{{title}}</div>' +
+      '</div>' +
       '<div class="goals-assessment-description">{{description}}</div>' +
       '<div class="goals-assessment-view"></div>';
 
@@ -71,11 +75,32 @@ H5P.GoalsAssessmentPage = (function ($) {
         '</div>' +
       '</div>';
 
-    this.$inner = $container.addClass(MAIN_CONTAINER);
+    this.$inner = $('<div>', {
+      'class': MAIN_CONTAINER
+    }).appendTo($container);
+
     this.$inner.append(Mustache.render(goalsAssessmentTemplate, self.params));
+
+    this.createHelpTextButton();
 
     this.$assessmentView = $('.goals-assessment-view', this.$inner);
     this.createStandardPage();
+  };
+
+  /**
+   * Create help text functionality for reading more about the task
+   */
+  GoalsAssessmentPage.prototype.createHelpTextButton = function () {
+    var self = this;
+
+    if (this.params.helpText !== undefined && this.params.helpText.length) {
+      $('.goals-assessment-help-text', this.$inner).click(function () {
+        var $helpTextDialog = new H5P.JoubelUI.createHelpTextDialog(self.params.title, self.params.helpText);
+        $helpTextDialog.appendTo(self.$inner.parent().parent().parent());
+      });
+    } else {
+      $('.goals-assessment-help-text', this.$inner).remove();
+    }
   };
 
   /**

@@ -1,6 +1,30 @@
+.h5p-goals-assessment-page {
+  padding: 0.5em 1em;
+}
+
+/* -------------------------------------- Goal Assessment Header --------------------- */
+.h5p-goals-assessment-page .goals-assessment-help-text {
+  float: right;
+  color: #85B1E3;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+
 /* Goals assessment view*/
 .h5p-goals-assessment-page .goals-assessment-view {
   text-align: center;
+  height: 75%;
+  overflow: auto;
+}
+
+.h5p-goals-assessment-page .goals-assessment-title {
+  height: 10%;
+  padding: 0.25em 0;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.h5p-goals-assessment-page .goals-assessment-description {
+  height: 15%;
 }
 
 /* Goals counter */

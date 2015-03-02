@@ -4,8 +4,7 @@
     "label": "Title",
     "type": "text",
     "description": "Title for the goals assessment page.",
-    "default": "Goals assessment",
-    "optional": true
+    "default": "Goals assessment"
   },
   {
     "name": "description",
@@ -62,6 +61,13 @@
     "type": "text",
     "description": "Feedback text when no goals have been created.",
     "default": "You have not chosen any goals yet."
+  },
+  {
+    "name": "helpTextLabel",
+    "label": "Label for help text",
+    "type": "text",
+    "description": "Label for showing additional helpful information to the user.",
+    "default": "Read more"
   },
   {
     "name": "helpText",
