@@ -2,7 +2,7 @@
   padding: 0.5em 1em;
 }
 
-/* -------------------------------------- Goal Assessment Header --------------------- */
+/* ----------------------------- Goal Assessment Header --------------------- */
 .h5p-goals-assessment-page .goals-assessment-help-text {
   float: right;
   color: #85B1E3;
@@ -12,57 +12,123 @@
 
 /* Goals assessment view*/
 .h5p-goals-assessment-page .goals-assessment-view {
-  text-align: center;
-  height: 75%;
-  overflow: auto;
+  position: relative;
+  overflow: hidden;
 }
 
 .h5p-goals-assessment-page .goals-assessment-title {
-  height: 10%;
   padding: 0.25em 0;
   border-bottom: 1px solid #E5E5E5;
 }
 
 .h5p-goals-assessment-page .goals-assessment-description {
-  height: 15%;
-}
-
-/* Goals counter */
-.h5p-goals-assessment-page .goals-assessment-view .assessment-counter {
-}
-
-/* Current goal */
-.h5p-goals-assessment-page .goals-assessment-view .assessment-counter span.goal-current {
-  padding: 0em 0.3em;
-}
-
-/* Counter delimiter */
-.h5p-goals-assessment-page .goals-assessment-view .assessment-counter span.goal-delimiter:before {
-  content: "/";
-}
-
-/* Max goal */
-.h5p-goals-assessment-page .goals-assessment-view .assessment-counter span.goal-max {
-  padding: 0em 0.3em;
-}
-
-/* Goal text */
-.h5p-goals-assessment-page .goals-assessment-view .assessment-goal {
-  padding: 1.5em 0em;
-}
-
-/* Rating container */
-.h5p-goals-assessment-page .goals-assessment-view .assessment-rating {
   padding: 1em 0em;
 }
 
-.h5p-goals-assessment-page .goals-assessment-view .assessment-rating .rating-container {
-  display: inline-block;
-  padding: 0em 1em;
-  vertical-align: top;
-  max-width: 30%;
+/* ---------------------------- Assessment wrapper -------------------------- */
+.h5p-goals-assessment-page .assessment-wrapper {
+  width: 100%;
+  margin-bottom: 1.5em;
+  transition: transform 0.8s ease;
 }
 
-.h5p-goals-assessment-page .goals-assessment-view .assessment-rating span.rating-text {
-  display: block;
+.h5p-goals-assessment-page .goals-assessment-view .assessment-container {
+  position: relative;
+}
+
+.h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.prev {
+  transform: translateX(-100%);
+}
+
+.h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.current {
+  transform: translateX(0);
+}
+
+.h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.next {
+  transform: translateX(100%);
+  position: absolute;
+  top: 0;
+}
+
+.h5p-goals-assessment-page .assessment-wrapper .assessment-value {
+  color: #999;
+}
+
+/* ------------------------------ Assessment container -----------------------*/
+
+.h5p-goals-assessment-page .assessment-counter {
+  padding: 0.5em 1em;
+  overflow: hidden;
+}
+
+/* Goal text */
+.h5p-goals-assessment-page .assessment-goal {
+  padding-bottom: 1em;
+}
+
+/* Rating container */
+.h5p-goals-assessment-page .assessment-rating {
+}
+
+.h5p-goals-assessment-page .assessment-rating .rating-container {
+}
+
+.h5p-goals-assessment-page .assessment-rating span.rating-text {
+  padding-left: 1em;
+}
+
+/* ------------------------- Truncated assessment goals --------------------- */
+
+.h5p-goals-assessment-page .goals-finished-assessed-view .assessment-container .assessment-rating {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.6s ease;
+}
+
+.h5p-goals-assessment-page .goals-finished-assessed-view .assessment-container .assessment-goal {
+  padding-bottom: 0;
+  display: block; /* fallback */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.h5p-goals-assessment-page .goals-finished-assessed-view .assessment-wrapper {
+  margin-bottom: 0.5em;
+}
+
+/* ------------------------- Hover effects ---------------------------------- */
+
+.h5p-goals-assessment-page .goals-finished-assessed-view .assessment-container:hover .assessment-rating {
+  max-height: 10em;
+  opacity: 1;
+}
+
+.h5p-goals-assessment-page .goals-finished-assessed-view .assessment-container:hover .assessment-goal {
+  -webkit-line-clamp: initial;
+}
+
+/* ------------------------ Different color for goal types -------------------*/
+
+.h5p-goals-assessment-page .assessment-container.goal-type-0 {
+  background-color: #95D641;
+}
+
+.h5p-goals-assessment-page .assessment-container.goal-type-1 {
+  background-color: #3FC3FF;
+}
+
+.h5p-goals-assessment-page .assessment-container.goal-type-2 {
+  background-color: #1CE8B5;
+}
+
+/* ----------------------- Radio buttons styling -----------------------------*/
+
+.h5p-goals-assessment-page .assessment-container input.rating-box {
+  margin-right: 1em;
+}
+
+.h5p-goals-assessment-page .assessment-container label.rating-text {
+  font-weight: normal;
 }

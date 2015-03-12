@@ -28,13 +28,6 @@
     "optional": true
   },
   {
-    "name": "counterText",
-    "label": "Counter text",
-    "type": "text",
-    "description": "Text that will be displayed together with the counter for which task you are evaluating.",
-    "default": "Evaluation goals"
-  },
-  {
     "name": "lowRating",
     "label": "Low rating text",
     "type": "text",
