@@ -82,7 +82,8 @@
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-container .assessment-rating {
   max-height: 0;
   opacity: 0;
-  transition: max-height 0.6s ease;
+  transition: all 0.6s ease;
+  transition-delay: 0.2s;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-container .assessment-goal {
@@ -111,16 +112,13 @@
 
 /* ------------------------ Different color for goal types -------------------*/
 
-.h5p-goals-assessment-page .assessment-container.goal-type-0 {
-  background-color: #95D641;
-}
-
 .h5p-goals-assessment-page .assessment-container.goal-type-1 {
-  background-color: #3FC3FF;
+  background-color: #a1b6cc;
 }
 
+.h5p-goals-assessment-page .assessment-container.goal-type-0,
 .h5p-goals-assessment-page .assessment-container.goal-type-2 {
-  background-color: #1CE8B5;
+  background-color: #cad6e1;
 }
 
 /* ----------------------- Radio buttons styling -----------------------------*/
