@@ -5,9 +5,13 @@ var H5P = H5P || {};
  * Goals Assessment Page module
  * @external {jQuery} $ H5P.jQuery
  */
-H5P.GoalsAssessmentPage = (function ($, Mustache) {
+H5P.GoalsAssessmentPage = (function ($) {
   // CSS Classes:
   var MAIN_CONTAINER = 'h5p-goals-assessment-page';
+
+  var GOAL_USER_DEFINED = 0;
+  var GOAL_PREDEFINED = 1;
+  var GOAL_PREDEFINED_SPECIFICATION = 2;
 
   /**
    * Initialize module.
@@ -26,6 +30,7 @@ H5P.GoalsAssessmentPage = (function ($, Mustache) {
       lowRating: 'Learned little',
       midRating: 'Learned something',
       highRating: 'Learned a lot',
+      goalSpecificationsLabel: 'Specifications',
       noGoalsText: 'You have not chosen any goals yet.',
       helpTextLabel: 'Read more',
       helpText: 'Help text'
@@ -50,6 +55,43 @@ H5P.GoalsAssessmentPage = (function ($, Mustache) {
       '<div class="goals-assessment-view"></div>' +
       '<div class="goals-finished-assessed-view"></div>';
 
+    this.specificationParentTemplate =
+      '<div class="assessment-wrapper">' +
+        '<div class="assessment-value">{{goalSpecificationsLabel}}</div>' +
+        '<div class="assessment-container">' +
+          '<div class="assessment-counter">' +
+            '<div class="assessment-goal">{{noGoalsText}}</div>' +
+          '</div>' +
+          '<div class="assessment-specifications"></div>' +
+        '</div>' +
+      '</div>';
+
+    this.specificationChildTemplate =
+      '<div class="assessment-wrapper">' +
+        '<div class="assessment-container">' +
+          '<div class="assessment-counter">' +
+            '<div class="assessment-goal">{{noGoalsText}}</div>' +
+            '<div class="assessment-rating">' +
+              '<div class="rating-container">' +
+                '<label class="rating-text">' +
+                  '<input type="radio" class="rating-box">{{lowRating}}' +
+                '</label>' +
+              '</div>' +
+              '<div class="rating-container">' +
+                '<label class="rating-text">' +
+                  '<input type="radio" class="rating-box">{{midRating}}' +
+                '</label>' +
+              '</div>' +
+              '<div class="rating-container">' +
+                '<label class="rating-text">' +
+                  '<input type="radio" class="rating-box">{{highRating}}' +
+                '</label>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
     this.assessmentViewTemplate =
       '<div class="assessment-wrapper">' +
         '<div class="assessment-value"></div>' +
@@ -71,6 +113,7 @@ H5P.GoalsAssessmentPage = (function ($, Mustache) {
                 '<label class="rating-text">' +
                   '<input type="radio" class="rating-box">{{highRating}}' +
                 '</label>' +
+              '</div>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -134,6 +177,7 @@ H5P.GoalsAssessmentPage = (function ($, Mustache) {
    */
   GoalsAssessmentPage.prototype.updateAssessmentGoals = function (newGoals) {
     var self = this;
+    self.currentGoals = newGoals.slice(0);
 
     // Create standard page if there are no goals
     var goalCount = 0;
@@ -145,43 +189,114 @@ H5P.GoalsAssessmentPage = (function ($, Mustache) {
       return;
     }
 
-    // Remove all pages if last goals was empty
+    // Clean view
     self.$assessmentView.children().remove();
     self.$finishedAssessmentView.children().remove();
 
+    // Create and place all goals
     newGoals.forEach(function (goalsPage) {
       goalsPage.forEach(function (goalInstance) {
-        // Render goal assessment container
-        var $goalAssessmentContainer = Mustache.render(self.assessmentViewTemplate,
-          $.extend({},
-            self.params,
-            {noGoalsText: goalInstance.goalText()}
-            )
-          );
-        $goalAssessmentContainer = $($goalAssessmentContainer).data('uniqueId', goalInstance.getUniqueId());
-
-        // Set the correctly answered goal
-        self.initRadioGroup($goalAssessmentContainer);
-        self.getAnswerForGoalInstance($goalAssessmentContainer, goalInstance);
-
-        // Add unassessed goals to assessment view
-        if (goalInstance.goalAnswer() < 0) {
-          $goalAssessmentContainer.appendTo(self.$assessmentView);
-        } else {
-          // Add already assessed goals to finished assessed view
-          self.moveGoalToFinishedArea($goalAssessmentContainer);
-          // Update answer value for element
-          self.setAnswerInGoalElement($goalAssessmentContainer);
-        }
-        self.addGoalTypeClassToElement($goalAssessmentContainer, goalInstance.getGoalInstanceType());
+        self.createGoalAssessmentElement(goalInstance);
       });
     });
-    self.currentGoals = newGoals.slice(0);
 
     // Set current goal to 0
     //this.updateAssessmentContainerHeight();
     this.jumpToGoal(0);
     this.resize();
+  };
+
+  /**
+   * Places goal element into correct view
+   * @param {jQuery} $goalAssessmentContainer Goal assessment container
+   */
+  GoalsAssessmentPage.prototype.placeGoalElement = function ($goalAssessmentContainer) {
+    var goalInstance = this.getGoalInstanceFromUniqueId($goalAssessmentContainer.data('uniqueId'));
+    var goalInstanceAnswered = true;
+
+    // For goal specification parent check that all elements have been answered
+    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED
+      && goalInstance.getSpecifications().length) {
+
+      goalInstance.getSpecifications().forEach(function (specification) {
+        // Check if specification is unanswered
+        if (specification.goalAnswer() < 0) {
+          goalInstanceAnswered = false;
+        }
+      });
+    } else {
+      if (goalInstance.goalAnswer() < 0) {
+        goalInstanceAnswered = false;
+      }
+    }
+
+    // Add goals to their view
+    if (goalInstanceAnswered) {
+      // Add already assessed goals to finished assessed view
+      this.moveGoalToFinishedArea($goalAssessmentContainer);
+      // Update answer value for element
+      this.setAnswerInGoalElement($goalAssessmentContainer);
+    } else {
+      $goalAssessmentContainer.appendTo(this.$assessmentView);
+    }
+    this.addGoalTypeClassToElement($goalAssessmentContainer, goalInstance.getGoalInstanceType());
+  };
+
+  /**
+   * Create goal assessment element from goal instance
+   * @param {H5P.GoalsPage.GoalInstance} goalInstance Goal instance
+   * @returns {jQuery} $goalsAssessmentContainer Goal assessment container element
+   */
+  GoalsAssessmentPage.prototype.createGoalAssessmentElement = function (goalInstance) {
+    var self = this;
+
+    // Skip specifications, they are included in parent element
+    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
+      return;
+    }
+
+    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED
+        && goalInstance.getSpecifications().length) {
+
+      var $goalAssessmentContainer = $(Mustache.render(self.specificationParentTemplate,
+        $.extend({},
+          self.params,
+          {noGoalsText: goalInstance.goalText()}
+        )
+      ));
+
+      var $specifications = $('.assessment-specifications', $goalAssessmentContainer);
+      goalInstance.getSpecifications().forEach(function (specification) {
+        var $goalSpecification = $(Mustache.render(self.specificationChildTemplate,
+          $.extend({},
+            self.params,
+            {noGoalsText: specification.goalText()}
+          )
+        )).data('uniqueId', specification.getUniqueId())
+          .appendTo($specifications);
+
+        // Set the correctly answered goal
+        self.initRadioGroup($goalSpecification);
+        self.getAnswerForGoalInstance($goalSpecification, specification);
+        self.addGoalTypeClassToElement($goalSpecification, specification.getGoalInstanceType());
+      })
+    } else {
+      var $goalAssessmentContainer = $(Mustache.render(self.assessmentViewTemplate,
+        $.extend({},
+          self.params,
+          {noGoalsText: goalInstance.goalText()}
+        )
+      ));
+
+      // Set the correctly answered goal
+      self.initRadioGroup($goalAssessmentContainer);
+      self.getAnswerForGoalInstance($goalAssessmentContainer, goalInstance);
+    }
+
+    $goalAssessmentContainer.data('uniqueId', goalInstance.getUniqueId());
+
+    // Place goal element in proper view
+    this.placeGoalElement($goalAssessmentContainer);
   };
 
   /**
@@ -219,7 +334,6 @@ H5P.GoalsAssessmentPage = (function ($, Mustache) {
   /**
    * Initialize radio group by grouping them on name and initializing change functionality
    * @param {jQuery} $radioGroup Container containing input for radio group
-   * @param {Number|String} radioGroupName A unique radio group name, often determined by an index
    */
   GoalsAssessmentPage.prototype.initRadioGroup = function ($radioGroup) {
     var self = this;
@@ -240,14 +354,26 @@ H5P.GoalsAssessmentPage = (function ($, Mustache) {
    * Processes the assessment of a goal
    */
   GoalsAssessmentPage.prototype.goalAssessed = function ($goalAssessed) {
-    // Always assess the first object in assessment view
+    var moveGoal = true;
+    var goalInstance = this.getGoalInstanceFromUniqueId($goalAssessed.data('uniqueId'));
+    var $assessmentViewElement = $goalAssessed;
 
     // Change goal instance answer
-    var goalInstance = this.getGoalInstanceFromUniqueId($goalAssessed.data('uniqueId'));
     this.setAnswerInGoalInstance($goalAssessed, goalInstance);
 
+    // Check all children if specification
+    if (goalInstance.getParent() !== undefined) {
+      $assessmentViewElement = $goalAssessed.parent().parent().parent();
+      var childSpecifications = goalInstance.getParent().getSpecifications();
+      childSpecifications.forEach(function (specification) {
+        if (specification.goalAnswer() < 0) {
+          moveGoal = false;
+        }
+      })
+    }
+
     // Only move goal to finished area if it is in assessment area
-    if (this.$assessmentView.children().index($goalAssessed) >= 0) {
+    if (this.$assessmentView.children().index($assessmentViewElement) >= 0 && moveGoal) {
       this.moveGoalToFinishedArea(this.$assessmentView.children().eq(0));
     }
 
@@ -418,6 +544,19 @@ H5P.GoalsAssessmentPage = (function ($, Mustache) {
    * @param {jQuery} $goalInstanceElement  Goal instance element
    */
   GoalsAssessmentPage.prototype.setAnswerInGoalElement = function ($goalInstanceElement) {
+    var goalInstance = this.getGoalInstanceFromUniqueId($goalInstanceElement.data('uniqueId'));
+
+    // Don't set answer label on specifications
+    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
+      return;
+    }
+
+    // Don't set answer label on specification parents
+    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED
+      && goalInstance.getSpecifications().length) {
+      return;
+    }
+
     var $checkedAlternative = $('input:checked', $goalInstanceElement);
     var goalInstanceText = $checkedAlternative.parent().text();
     $('.assessment-value', $goalInstanceElement).text(goalInstanceText);
@@ -447,4 +586,4 @@ H5P.GoalsAssessmentPage = (function ($, Mustache) {
   };
 
   return GoalsAssessmentPage;
-}(H5P.jQuery, Mustache));
+}(H5P.jQuery));
