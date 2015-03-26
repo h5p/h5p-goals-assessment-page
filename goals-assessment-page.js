@@ -35,6 +35,15 @@ H5P.GoalsAssessmentPage = (function ($) {
       helpTextLabel: 'Read more',
       helpText: 'Help text'
     }, params);
+
+    // Array containing assessment categories,
+    // makes it easier to extend categories at a later point.
+    this.assessmentCategories = [
+      this.params.lowRating,
+      this.params.midRating,
+      this.params.highRating,
+      this.params.goalSpecificationsLabel
+    ];
   }
 
   /**
@@ -57,7 +66,6 @@ H5P.GoalsAssessmentPage = (function ($) {
 
     this.specificationParentTemplate =
       '<div class="assessment-wrapper">' +
-        '<div class="assessment-value">{{goalSpecificationsLabel}}</div>' +
         '<div class="assessment-container">' +
           '<div class="assessment-counter">' +
             '<div class="assessment-goal">{{noGoalsText}}</div>' +
@@ -94,7 +102,6 @@ H5P.GoalsAssessmentPage = (function ($) {
 
     this.assessmentViewTemplate =
       '<div class="assessment-wrapper">' +
-        '<div class="assessment-value"></div>' +
         '<div class="assessment-container">' +
           '<div class="assessment-counter">' +
             '<div class="assessment-goal">{{noGoalsText}}</div>' +
@@ -131,7 +138,22 @@ H5P.GoalsAssessmentPage = (function ($) {
     this.$finishedAssessmentView = $('.goals-finished-assessed-view', this.$inner);
 
     this.createStandardPage();
-    this.resize();
+  };
+
+  GoalsAssessmentPage.prototype.createAnswerCategories = function () {
+    var self = this;
+
+    // Create each category
+    this.assessmentCategories.forEach(function (categoryName) {
+      var $assessmentCategory = $('<div>', {
+        'class': 'assessment-category',
+        'text': categoryName
+      }).appendTo(self.$finishedAssessmentView);
+
+      $('<div>', {
+        'class': 'assessment-category-container'
+      }).appendTo($assessmentCategory);
+    });
   };
 
   /**
@@ -155,6 +177,7 @@ H5P.GoalsAssessmentPage = (function ($) {
    */
   GoalsAssessmentPage.prototype.createStandardPage = function () {
     this.$assessmentView.children().remove();
+    this.$finishedAssessmentView.children().remove();
     this.$assessmentView
       .append(Mustache.render(this.assessmentViewTemplate, this.params));
     $('.assessment-rating', this.$assessmentView).remove();
@@ -192,6 +215,7 @@ H5P.GoalsAssessmentPage = (function ($) {
     // Clean view
     self.$assessmentView.children().remove();
     self.$finishedAssessmentView.children().remove();
+    this.createAnswerCategories();
 
     // Create and place all goals
     newGoals.forEach(function (goalsPage) {
@@ -203,7 +227,6 @@ H5P.GoalsAssessmentPage = (function ($) {
     // Set current goal to 0
     //this.updateAssessmentContainerHeight();
     this.jumpToGoal(0);
-    this.resize();
   };
 
   /**
@@ -234,8 +257,6 @@ H5P.GoalsAssessmentPage = (function ($) {
     if (goalInstanceAnswered) {
       // Add already assessed goals to finished assessed view
       this.moveGoalToFinishedArea($goalAssessmentContainer);
-      // Update answer value for element
-      this.setAnswerInGoalElement($goalAssessmentContainer);
     } else {
       $goalAssessmentContainer.appendTo(this.$assessmentView);
     }
@@ -345,7 +366,7 @@ H5P.GoalsAssessmentPage = (function ($) {
         // Add checked to this radio group button
         $(this).prop('checked', true);
 
-        // Handle that goal has been assessed
+        // Handle that goal has been assessed if input was changed
         self.goalAssessed($radioGroup, $(this).index());
       });
   };
@@ -354,34 +375,28 @@ H5P.GoalsAssessmentPage = (function ($) {
    * Processes the assessment of a goal
    */
   GoalsAssessmentPage.prototype.goalAssessed = function ($goalAssessed) {
-    var moveGoal = true;
     var goalInstance = this.getGoalInstanceFromUniqueId($goalAssessed.data('uniqueId'));
-    var $assessmentViewElement = $goalAssessed;
 
-    // Change goal instance answer
-    this.setAnswerInGoalInstance($goalAssessed, goalInstance);
+    // Check if goal answer was changed and update goal instance
+    var moveGoal = this.setAnswerInGoalInstance($goalAssessed, goalInstance);
 
     // Check all children if specification
     if (goalInstance.getParent() !== undefined) {
-      $assessmentViewElement = $goalAssessed.parent().parent().parent();
       var childSpecifications = goalInstance.getParent().getSpecifications();
       childSpecifications.forEach(function (specification) {
         if (specification.goalAnswer() < 0) {
           moveGoal = false;
         }
-      })
+      });
+      $goalAssessed = $goalAssessed.parent().parent().parent();
     }
 
-    // Only move goal to finished area if it is in assessment area
-    if (this.$assessmentView.children().index($assessmentViewElement) >= 0 && moveGoal) {
-      this.moveGoalToFinishedArea(this.$assessmentView.children().eq(0));
+    // Move goal to new category
+    if (moveGoal) {
+      this.moveGoalToFinishedArea($goalAssessed);
     }
-
-    // Update answer value for element
-    this.setAnswerInGoalElement($goalAssessed);
 
     this.jumpToGoal(0);
-    this.resize();
   };
 
   /**
@@ -399,25 +414,33 @@ H5P.GoalsAssessmentPage = (function ($) {
   };
 
   /**
-   * Removes height of assessment container if it is empty
-   */
-  GoalsAssessmentPage.prototype.updateAssessmentContainerHeight = function () {
-    if (this.$assessmentView.children().length <= 0) {
-      this.$assessmentView.css('height', 0);
-    } else {
-      // Set to static height in em
-      var staticAssessmentContainerHeight = 15;
-      var fontSize = parseInt(this.$assessmentView.css('font-size'), 10);
-      this.$assessmentView.css('height', fontSize * staticAssessmentContainerHeight);
-    }
-  };
-
-  /**
    * Moves goal to finished assessment view
    * @param {jQuery} $goal Element that will be moved
    */
   GoalsAssessmentPage.prototype.moveGoalToFinishedArea = function ($goal) {
-    $goal.prependTo(this.$finishedAssessmentView);
+    var goalInstance = this.getGoalInstanceFromUniqueId($goal.data('uniqueId'));
+    var goalAnswer = goalInstance.goalAnswer();
+    var $prevCategory = $goal.parent().parent();
+    var $prevCategoryContainer = $('.assessment-category-container', $prevCategory);
+    var goalInsideAssessmentView = (this.$assessmentView.find($goal).length > 0);
+    var goalHasSpecifications = (goalInstance.getSpecifications() !== undefined)
+      && (goalInstance.getSpecifications().length > 0);
+    var appendSpecification = goalHasSpecifications && (goalInsideAssessmentView || $prevCategory.length === 0);
+
+    // Find matching category and show category
+    var $category = this.$finishedAssessmentView.children().eq(goalAnswer);
+    var $categoryContainer = $('.assessment-category-container', $category);
+
+    // Do not move specifications when reevaluated
+    if (!goalHasSpecifications || appendSpecification) {
+      $goal.prependTo($categoryContainer);
+      $category.addClass('show-text');
+    }
+
+    // Hide previous category if not assessment view and it is empty
+    if (!goalInsideAssessmentView && $prevCategoryContainer.is(':empty') && !goalHasSpecifications) {
+      $prevCategory.removeClass('show-text');
+    }
   };
 
   /**
@@ -528,61 +551,24 @@ H5P.GoalsAssessmentPage = (function ($) {
    * Sets chosen answer in goals' goal object
    * @param {jQuery} $goalInstanceElement Container with answered goal
    * @param {GoalInstance} goalInstance Goal object
+   * @return {Boolean} Returns true if goal answer was changed, else false
    */
   GoalsAssessmentPage.prototype.setAnswerInGoalInstance = function ($goalInstanceElement, goalInstance) {
     var chosenAlternative = $('input:checked', $goalInstanceElement)
       .parent()
       .parent()
       .index();
+
+    // Return false if goal answer was not changed
+    if (chosenAlternative === goalInstance.goalAnswer()) {
+      return false;
+    }
+
+    // Change goal answer in goal instance
     if (chosenAlternative > -1) {
       goalInstance.goalAnswer(chosenAlternative);
     }
-  };
-
-  /**
-   * Sets answered value as label for element
-   * @param {jQuery} $goalInstanceElement  Goal instance element
-   */
-  GoalsAssessmentPage.prototype.setAnswerInGoalElement = function ($goalInstanceElement) {
-    var goalInstance = this.getGoalInstanceFromUniqueId($goalInstanceElement.data('uniqueId'));
-
-    // Don't set answer label on specifications
-    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
-      return;
-    }
-
-    // Don't set answer label on specification parents
-    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED
-      && goalInstance.getSpecifications().length) {
-      return;
-    }
-
-    var $checkedAlternative = $('input:checked', $goalInstanceElement);
-    var goalInstanceText = $checkedAlternative.parent().text();
-    $('.assessment-value', $goalInstanceElement).text(goalInstanceText);
-  };
-
-  GoalsAssessmentPage.prototype.resize = function () {
-/*    var self = this;
-    var maxHeight = 0;
-    // Make sure parent can fit children so they can be measured
-    self.$assessmentView.css('height', 800 + 'px');
-    // Find absolute height of highest assessment container
-    self.$assessmentView.children().each(function () {
-      var initialHeight = $(this).outerHeight();
-      var child = $(this);
-      console.log(child);
-      console.log($(this).height());
-      console.log($(this).outerHeight());
-      console.log($(this).clientHeight);
-
-      if (initialHeight > maxHeight) {
-        maxHeight = initialHeight;
-      }
-    });
-
-    // Set height of all assessment view to max height plus padding
-    //self.$assessmentView.css('height', maxHeight);*/
+    return true;
   };
 
   return GoalsAssessmentPage;

@@ -59,7 +59,7 @@
     "name": "goalSpecificationsLabel",
     "label": "Goal specification label",
     "type": "text",
-    "default": "Specifications."
+    "default": "Specifications"
   },
   {
     "name": "helpTextLabel",
