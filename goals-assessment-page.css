@@ -5,7 +5,7 @@
 /* ----------------------------- Goal Assessment Header --------------------- */
 .h5p-goals-assessment-page .goals-assessment-help-text {
   float: right;
-  color: #85B1E3;
+  color: #20588F;
   cursor: pointer;
   font-size: 0.8em;
   line-height: 3.5em;
@@ -18,7 +18,8 @@
 }
 
 .h5p-goals-assessment-page .goals-assessment-title {
-  padding: 0.5em 0;
+  padding: 0.5em 0 0;
+  margin-bottom: 0.5em;
   font-size: 18px;
   border-bottom: 1px solid #E5E5E5;
 }
