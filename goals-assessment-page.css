@@ -8,7 +8,11 @@
   color: #20588F;
   cursor: pointer;
   font-size: 0.8em;
-  line-height: 3.5em;
+  line-height: 3.6em;
+}
+
+.h5p-goals-assessment-page .goals-assessment-help-text:hover {
+  color: #1a4773;
 }
 
 /* Goals assessment view*/
@@ -18,7 +22,7 @@
 }
 
 .h5p-goals-assessment-page .goals-assessment-title {
-  padding: 0.5em 0 0;
+  padding: 0.5em 0;
   margin-bottom: 0.5em;
   font-size: 18px;
   border-bottom: 1px solid #ccc;
@@ -90,6 +94,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  color: #000;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-wrapper {
@@ -183,5 +188,5 @@
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-category .assessment-category-container {
-  color: #626262;
+  color: #000;;
 }
