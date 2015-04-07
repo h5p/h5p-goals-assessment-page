@@ -447,11 +447,11 @@ H5P.GoalsAssessmentPage = (function ($) {
   /**
    * Gets current updated goals
    *
-   * @returns {Array} this.currentGoals Goals
+   * @returns {Object} current goals and assessment categories
    */
   GoalsAssessmentPage.prototype.getAssessedGoals = function () {
     this.registerAnswersForAllGoalPages();
-    return this.currentGoals;
+    return {goals: this.currentGoals, categories: this.assessmentCategories};
   };
 
   /**
@@ -553,6 +553,7 @@ H5P.GoalsAssessmentPage = (function ($) {
     if (chosenAlternative > -1) {
       goalInstance.goalAnswer(chosenAlternative);
     }
+    goalInstance.setTextualAnswer(this.assessmentCategories[chosenAlternative]);
     return true;
   };
 
