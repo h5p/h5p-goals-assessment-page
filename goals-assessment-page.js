@@ -6,10 +6,11 @@ var H5P = H5P || {};
  * @external {jQuery} $ H5P.jQuery
  */
 H5P.GoalsAssessmentPage = (function ($) {
+  "use strict";
+
   // CSS Classes:
   var MAIN_CONTAINER = 'h5p-goals-assessment-page';
 
-  var GOAL_USER_DEFINED = 0;
   var GOAL_PREDEFINED = 1;
   var GOAL_PREDEFINED_SPECIFICATION = 2;
 
@@ -57,10 +58,10 @@ H5P.GoalsAssessmentPage = (function ($) {
 
     var goalsAssessmentTemplate =
       '<div class="goals-assessment-header">' +
-      ' <div role="button" tabindex="1" class="goals-assessment-help-text">{{helpTextLabel}}</div>' +
-      ' <div class="goals-assessment-title">{{title}}</div>' +
+      ' <div role="button" tabindex="1" class="goals-assessment-help-text">{{{helpTextLabel}}}</div>' +
+      ' <div class="goals-assessment-title">{{{title}}}</div>' +
       '</div>' +
-      '<div class="goals-assessment-description">{{description}}</div>' +
+      '<div class="goals-assessment-description">{{{description}}}</div>' +
       '<div class="goals-assessment-view"></div>' +
       '<div class="goals-finished-assessed-view"></div>';
 
@@ -68,35 +69,9 @@ H5P.GoalsAssessmentPage = (function ($) {
       '<div class="assessment-wrapper">' +
         '<div class="assessment-container">' +
           '<div class="assessment-counter">' +
-            '<div class="assessment-goal">{{noGoalsText}}</div>' +
+            '<div class="assessment-goal">{{{noGoalsText}}}</div>' +
           '</div>' +
           '<div class="assessment-specifications"></div>' +
-        '</div>' +
-      '</div>';
-
-    this.specificationChildTemplate =
-      '<div class="assessment-wrapper">' +
-        '<div class="assessment-container">' +
-          '<div class="assessment-counter">' +
-            '<div class="assessment-goal">{{noGoalsText}}</div>' +
-            '<div class="assessment-rating">' +
-              '<div class="rating-container">' +
-                '<label class="rating-text">' +
-                  '<input type="radio" class="rating-box">{{lowRating}}' +
-                '</label>' +
-              '</div>' +
-              '<div class="rating-container">' +
-                '<label class="rating-text">' +
-                  '<input type="radio" class="rating-box">{{midRating}}' +
-                '</label>' +
-              '</div>' +
-              '<div class="rating-container">' +
-                '<label class="rating-text">' +
-                  '<input type="radio" class="rating-box">{{highRating}}' +
-                '</label>' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
         '</div>' +
       '</div>';
 
@@ -104,21 +79,21 @@ H5P.GoalsAssessmentPage = (function ($) {
       '<div class="assessment-wrapper">' +
         '<div class="assessment-container">' +
           '<div class="assessment-counter">' +
-            '<div class="assessment-goal">{{noGoalsText}}</div>' +
+            '<div class="assessment-goal">{{{noGoalsText}}}</div>' +
             '<div class="assessment-rating">' +
               '<div class="rating-container">' +
                 '<label class="rating-text">' +
-                  '<input type="radio" class="rating-box">{{lowRating}}' +
+                  '<input type="radio" class="rating-box">{{{lowRating}}}' +
                 '</label>' +
               '</div>' +
               '<div class="rating-container">' +
                 '<label class="rating-text">' +
-                  '<input type="radio" class="rating-box">{{midRating}}' +
+                  '<input type="radio" class="rating-box">{{{midRating}}}' +
                 '</label>' +
               '</div>' +
               '<div class="rating-container">' +
                 '<label class="rating-text">' +
-                  '<input type="radio" class="rating-box">{{highRating}}' +
+                  '<input type="radio" class="rating-box">{{{highRating}}}' +
                 '</label>' +
               '</div>' +
             '</div>' +
@@ -167,9 +142,9 @@ H5P.GoalsAssessmentPage = (function ($) {
       // Create help button
       $('.goals-assessment-help-text', this.$inner)
         .click(function () {
-        var $helpTextDialog = new H5P.JoubelUI.createHelpTextDialog(self.params.title, self.params.helpText);
-        $helpTextDialog.appendTo(self.$inner.parent().parent().parent());
-      }).keydown(function (e) {
+          var $helpTextDialog = new H5P.JoubelUI.createHelpTextDialog(self.params.title, self.params.helpText);
+          $helpTextDialog.appendTo(self.$inner.parent().parent().parent());
+        }).keydown(function (e) {
           var keyPressed = e.which;
           // 32 - space
           if (keyPressed === 32) {
@@ -250,7 +225,7 @@ H5P.GoalsAssessmentPage = (function ($) {
 
     // For goal specification parent check that all elements have been answered
     if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED
-      && goalInstance.getSpecifications().length) {
+        && goalInstance.getSpecifications().length) {
 
       goalInstance.getSpecifications().forEach(function (specification) {
         // Check if specification is unanswered
@@ -277,48 +252,47 @@ H5P.GoalsAssessmentPage = (function ($) {
   /**
    * Create goal assessment element from goal instance
    * @param {H5P.GoalsPage.GoalInstance} goalInstance Goal instance
-   * @returns {jQuery} $goalsAssessmentContainer Goal assessment container element
    */
   GoalsAssessmentPage.prototype.createGoalAssessmentElement = function (goalInstance) {
     var self = this;
+    var $goalAssessmentContainer;
 
     // Skip specifications, they are included in parent element
     if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED_SPECIFICATION) {
       return;
     }
 
-    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED
-        && goalInstance.getSpecifications().length) {
+    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED &&
+        goalInstance.getSpecifications().length) {
 
-      var $goalAssessmentContainer = $(Mustache.render(self.specificationParentTemplate,
+      $goalAssessmentContainer = $(Mustache.render(self.specificationParentTemplate,
         $.extend({},
           self.params,
           {noGoalsText: goalInstance.goalText()}
-        )
-      ));
+          )
+        ));
 
       var $specifications = $('.assessment-specifications', $goalAssessmentContainer);
       goalInstance.getSpecifications().forEach(function (specification) {
-        var $goalSpecification = $(Mustache.render(self.specificationChildTemplate,
+        var $goalSpecification = $(Mustache.render(self.assessmentViewTemplate,
           $.extend({},
             self.params,
-            {noGoalsText: specification.goalText()}
-          )
-        )).data('uniqueId', specification.getUniqueId())
+            {noGoalsText: specification.goalText()})
+          )).data('uniqueId', specification.getUniqueId())
           .appendTo($specifications);
 
         // Set the correctly answered goal
         self.initRadioGroup($goalSpecification);
         self.getAnswerForGoalInstance($goalSpecification, specification);
         self.addGoalTypeClassToElement($goalSpecification, specification.getGoalInstanceType());
-      })
+      });
     } else {
-      var $goalAssessmentContainer = $(Mustache.render(self.assessmentViewTemplate,
+      $goalAssessmentContainer = $(Mustache.render(self.assessmentViewTemplate,
         $.extend({},
           self.params,
           {noGoalsText: goalInstance.goalText()}
-        )
-      ));
+          )
+        ));
 
       // Set the correctly answered goal
       self.initRadioGroup($goalAssessmentContainer);
