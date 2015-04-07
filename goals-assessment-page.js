@@ -58,7 +58,7 @@ H5P.GoalsAssessmentPage = (function ($) {
 
     var goalsAssessmentTemplate =
       '<div class="goals-assessment-header">' +
-      ' <div role="button" tabindex="1" class="goals-assessment-help-text">{{{helpTextLabel}}}</div>' +
+      ' <div role="button" tabindex="0" class="goals-assessment-help-text">{{{helpTextLabel}}}</div>' +
       ' <div class="goals-assessment-title">{{{title}}}</div>' +
       '</div>' +
       '<div class="goals-assessment-description">{{{description}}}</div>' +
