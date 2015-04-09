@@ -224,8 +224,8 @@ H5P.GoalsAssessmentPage = (function ($) {
     var goalInstanceAnswered = true;
 
     // For goal specification parent check that all elements have been answered
-    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED
-        && goalInstance.getSpecifications().length) {
+    if (goalInstance.getGoalInstanceType() === GOAL_PREDEFINED &&
+        goalInstance.getSpecifications().length) {
 
       goalInstance.getSpecifications().forEach(function (specification) {
         // Check if specification is unanswered
@@ -408,8 +408,8 @@ H5P.GoalsAssessmentPage = (function ($) {
     var $prevCategory = $goal.parent().parent();
     var $prevCategoryContainer = $('.assessment-category-container', $prevCategory);
     var goalInsideAssessmentView = (this.$assessmentView.find($goal).length > 0);
-    var goalHasSpecifications = (goalInstance.getSpecifications() !== undefined)
-      && (goalInstance.getSpecifications().length > 0);
+    var goalHasSpecifications = (goalInstance.getSpecifications() !== undefined) &&
+      (goalInstance.getSpecifications().length > 0);
     var appendSpecification = goalHasSpecifications && (goalInsideAssessmentView || $prevCategory.length === 0);
 
     // Find matching category and show category
@@ -430,6 +430,7 @@ H5P.GoalsAssessmentPage = (function ($) {
 
   /**
    * Updates styling for radio group depending on what current index is
+   * @param {jQuery} $goalsAssessmentPage Goals assessment page
    * @param {Number} radioGroupIndex Index of radio group that will be styled
    * @param {Number} currentIndex Index of current radio group
    */
@@ -457,7 +458,7 @@ H5P.GoalsAssessmentPage = (function ($) {
   /**
    * Returns the goal instance matching provided id
    * @param {Number} goalInstanceUniqueId Id matching unique id of target goal
-   * @returns {GoalInstance|Number} Returns matching goal instance or -1 if not found
+   * @returns {H5P.GoalsPage.GoalInstance|Number} Returns matching goal instance or -1 if not found
    */
   GoalsAssessmentPage.prototype.getGoalInstanceFromUniqueId = function (goalInstanceUniqueId) {
     var foundInstance = -1;
@@ -500,7 +501,7 @@ H5P.GoalsAssessmentPage = (function ($) {
   /**
    * Registers answer for goal instance
    * @param {jQuery} $finishedAssessedArray Container with answered goal
-   * @param {GoalInstance} goalInstance Goal object
+   * @param {H5P.GoalsPage.GoalInstance} goalInstance Goal object
    * @param {Boolean} setValues True if function should insert radio values
    */
   GoalsAssessmentPage.prototype.registerAnswerForGoalInstance = function ($finishedAssessedArray, goalInstance, setValues) {
@@ -522,7 +523,7 @@ H5P.GoalsAssessmentPage = (function ($) {
   /**
    * Gets the chosen answer, and displays it on corresponding container
    * @param {jQuery} $goalInstanceElement Container with answered goal
-   * @param {GoalInstance} goalInstance Goal object
+   * @param {H5P.GoalsPage.GoalInstance} goalInstance Goal object
    */
   GoalsAssessmentPage.prototype.getAnswerForGoalInstance = function ($goalInstanceElement, goalInstance) {
     if (goalInstance.goalAnswer() > -1) {
@@ -535,7 +536,7 @@ H5P.GoalsAssessmentPage = (function ($) {
   /**
    * Sets chosen answer in goals' goal object
    * @param {jQuery} $goalInstanceElement Container with answered goal
-   * @param {GoalInstance} goalInstance Goal object
+   * @param {H5P.GoalsPage.GoalInstance} goalInstance Goal object
    * @return {Boolean} Returns true if goal answer was changed, else false
    */
   GoalsAssessmentPage.prototype.setAnswerInGoalInstance = function ($goalInstanceElement, goalInstance) {
