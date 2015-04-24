@@ -418,13 +418,23 @@ H5P.GoalsAssessmentPage = (function ($) {
 
     // Do not move specifications when reevaluated
     if (!goalHasSpecifications || appendSpecification) {
+      setTimeout(function () {
+        $goal.removeClass('show');
+      }, 0);
       $goal.prependTo($categoryContainer);
-      $category.addClass('show-text');
+      // Queue css changes
+      setTimeout(function () {
+        $goal.addClass('show');
+        $category.addClass('show-text');
+      }, 100);
     }
 
     // Hide previous category if not assessment view and it is empty
     if (!goalInsideAssessmentView && $prevCategoryContainer.is(':empty') && !goalHasSpecifications) {
-      $prevCategory.removeClass('show-text');
+      // Queue css changes
+      setTimeout(function () {
+        $prevCategory.removeClass('show-text');
+      }, 0);
     }
   };
 
