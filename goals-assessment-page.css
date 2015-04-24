@@ -50,6 +50,7 @@
 
 .h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.current {
   transform: translateX(0);
+  transition: transform 1s ease;
 }
 
 .h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.next {
