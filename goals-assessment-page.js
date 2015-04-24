@@ -40,9 +40,9 @@ H5P.GoalsAssessmentPage = (function ($) {
     // Array containing assessment categories,
     // makes it easier to extend categories at a later point.
     this.assessmentCategories = [
-      this.params.lowRating,
-      this.params.midRating,
       this.params.highRating,
+      this.params.midRating,
+      this.params.lowRating,
       this.params.goalSpecificationsLabel
     ];
   }
@@ -83,7 +83,7 @@ H5P.GoalsAssessmentPage = (function ($) {
             '<div class="assessment-rating">' +
               '<div class="rating-container">' +
                 '<label class="rating-text">' +
-                  '<input type="radio" class="rating-box">{{{lowRating}}}' +
+                  '<input type="radio" class="rating-box">{{{highRating}}}' +
                 '</label>' +
               '</div>' +
               '<div class="rating-container">' +
@@ -93,7 +93,7 @@ H5P.GoalsAssessmentPage = (function ($) {
               '</div>' +
               '<div class="rating-container">' +
                 '<label class="rating-text">' +
-                  '<input type="radio" class="rating-box">{{{highRating}}}' +
+                  '<input type="radio" class="rating-box">{{{lowRating}}}' +
                 '</label>' +
               '</div>' +
             '</div>' +
