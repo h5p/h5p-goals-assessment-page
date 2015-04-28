@@ -38,6 +38,11 @@
   width: 100%;
   margin-bottom: 1.5em;
   transition: transform 0.8s ease;
+  opacity: 0;
+}
+
+.h5p-goals-assessment-page .assessment-wrapper.show {
+  opacity: 1;
 }
 
 .h5p-goals-assessment-page .goals-assessment-view .assessment-container {
@@ -50,7 +55,7 @@
 
 .h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.current {
   transform: translateX(0);
-  transition: transform 1s ease;
+  transition: transform 1s ease, opacity 1s ease-in;
 }
 
 .h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.next {
@@ -189,16 +194,29 @@
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-category {
   opacity: 0;
   max-height: 0;
-  transition: opacity 1s ease-in;
+  transition: opacity 0.2s ease;
   color: #999;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-category.show-text {
   opacity: 1;
   max-height: none;
-  transition: opacity 1s ease-in;
+  transition: opacity 0.2s ease;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-category .assessment-category-container {
   color: #000;
+}
+
+/* -------------------------- Preloading ------------------------------------ */
+
+.h5p-goals-assessment-page.preload .goals-finished-assessed-view .assessment-wrapper {
+  opacity: 1;
+  transition:  none !important;
+}
+
+.h5p-goals-assessment-page .assessment-wrapper * {
+  visibility: visible;
+  max-height: 50em;
+  opacity: 1;
 }

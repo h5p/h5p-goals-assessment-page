@@ -66,7 +66,7 @@ H5P.GoalsAssessmentPage = (function ($) {
       '<div class="goals-finished-assessed-view"></div>';
 
     this.specificationParentTemplate =
-      '<div class="assessment-wrapper">' +
+      '<div class="assessment-wrapper show">' +
         '<div class="assessment-container">' +
           '<div class="assessment-counter">' +
             '<div class="assessment-goal">{{{noGoalsText}}}</div>' +
@@ -76,7 +76,7 @@ H5P.GoalsAssessmentPage = (function ($) {
       '</div>';
 
     this.assessmentViewTemplate =
-      '<div class="assessment-wrapper">' +
+      '<div class="assessment-wrapper show">' +
         '<div class="assessment-container">' +
           '<div class="assessment-counter">' +
             '<div class="assessment-goal">{{{noGoalsText}}}</div>' +
@@ -186,7 +186,11 @@ H5P.GoalsAssessmentPage = (function ($) {
    */
   GoalsAssessmentPage.prototype.updateAssessmentGoals = function (newGoals) {
     var self = this;
+    this.finishedPreload = false;
     self.currentGoals = newGoals.slice(0);
+
+    // Set preload class to disable initial transitions on pageload
+    this.$inner.addClass('preload');
 
     // Create standard page if there are no goals
     var goalCount = 0;
@@ -213,6 +217,12 @@ H5P.GoalsAssessmentPage = (function ($) {
     // Set current goal to 0
     //this.updateAssessmentContainerHeight();
     this.jumpToGoal(0);
+
+    // Remove preload class after all goals has been loaded
+    setTimeout(function () {
+      self.finishedPreload = true;
+      self.$inner.removeClass('preload');
+    }, 500);
   };
 
   /**
@@ -380,8 +390,6 @@ H5P.GoalsAssessmentPage = (function ($) {
     if (moveGoal) {
       this.moveGoalToFinishedArea($goalAssessed);
     }
-
-    this.jumpToGoal(0);
   };
 
   /**
@@ -403,6 +411,8 @@ H5P.GoalsAssessmentPage = (function ($) {
    * @param {jQuery} $goal Element that will be moved
    */
   GoalsAssessmentPage.prototype.moveGoalToFinishedArea = function ($goal) {
+    var self = this;
+
     var goalInstance = this.getGoalInstanceFromUniqueId($goal.data('uniqueId'));
     var goalAnswer = goalInstance.goalAnswer();
     var $prevCategory = $goal.parent().parent();
@@ -418,23 +428,33 @@ H5P.GoalsAssessmentPage = (function ($) {
 
     // Do not move specifications when reevaluated
     if (!goalHasSpecifications || appendSpecification) {
-      setTimeout(function () {
-        $goal.removeClass('show');
-      }, 0);
-      $goal.prependTo($categoryContainer);
-      // Queue css changes
-      setTimeout(function () {
+      $goal.removeClass('show');
+
+      if (!this.finishedPreload) {
+        $goal.prependTo($categoryContainer);
         $goal.addClass('show');
         $category.addClass('show-text');
-      }, 100);
-    }
+        self.jumpToGoal(0);
+      } else {
+        // Let goal fade out before prepending it to new category
+        setTimeout(function () {
+          $goal.prependTo($categoryContainer);
+          self.jumpToGoal(0);
 
-    // Hide previous category if not assessment view and it is empty
-    if (!goalInsideAssessmentView && $prevCategoryContainer.is(':empty') && !goalHasSpecifications) {
-      // Queue css changes
-      setTimeout(function () {
-        $prevCategory.removeClass('show-text');
-      }, 0);
+
+          // Hide previous category if not assessment view and it is empty
+          if (!goalInsideAssessmentView && ($prevCategoryContainer.is(':empty')) && !goalHasSpecifications) {
+            // Queue css changes
+            $prevCategory.removeClass('show-text');
+          }
+
+          // Wait until fully faded out then fade in
+          setTimeout(function () {
+            $goal.addClass('show');
+            $category.addClass('show-text');
+          }, 250);
+        }, 1000);
+      }
     }
   };
 
