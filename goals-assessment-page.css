@@ -188,6 +188,11 @@
 
 .h5p-goals-assessment-page .assessment-container label.rating-text {
   font-weight: normal;
+  cursor: pointer;
+}
+
+.h5p-goals-assessment-page .assessment-container label.rating-text:hover {
+  color: #555;
 }
 
 /* --------------------- Category styling --------------------------------- */
