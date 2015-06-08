@@ -5,7 +5,7 @@
 /* ----------------------------- Goal Assessment Header --------------------- */
 .h5p-goals-assessment-page .goals-assessment-help-text {
   float: right;
-  color: #20588F;
+  color: #1a73d9;
   cursor: pointer;
   font-size: 0.8em;
   line-height: 3.6em;
@@ -100,7 +100,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  color: #000;
+  color: #fff;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-wrapper {
@@ -171,13 +171,10 @@
 
 /* ------------------------ Different color for goal types -------------------*/
 
-.h5p-goals-assessment-page .assessment-container.goal-type-1 {
-  background-color: #a1b6cc;
-}
-
 .h5p-goals-assessment-page .assessment-container.goal-type-0,
+.h5p-goals-assessment-page .assessment-container.goal-type-1,
 .h5p-goals-assessment-page .assessment-container.goal-type-2 {
-  background-color: #95D641;
+  background-color: #1a73d9;
 }
 
 /* ----------------------- Radio buttons styling -----------------------------*/
@@ -192,7 +189,7 @@
 }
 
 .h5p-goals-assessment-page .assessment-container label.rating-text:hover {
-  color: #555;
+  color: #fff;
 }
 
 /* --------------------- Category styling --------------------------------- */
@@ -209,8 +206,9 @@
   transition: opacity 0.2s ease;
 }
 
+.h5p-goals-assessment-page .goals-assessment-view,
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-category .assessment-category-container {
-  color: #000;
+  color: #fff;
 }
 
 /* -------------------------- Preloading ------------------------------------ */
