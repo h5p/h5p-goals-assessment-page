@@ -37,7 +37,7 @@
 .h5p-goals-assessment-page .assessment-wrapper {
   width: 100%;
   margin-bottom: 1.5em;
-  transition: transform 0.2s ease;
+  transition: transform 0.1s ease;
   opacity: 0;
 }
 
@@ -55,7 +55,7 @@
 
 .h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.current {
   transform: translateX(0);
-  transition: transform 0.25s ease, opacity 0.25s ease-in;
+  transition: transform 0.5s ease, opacity 0.5s ease-in;
 }
 
 .h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.next {
@@ -76,7 +76,7 @@
 .h5p-goals-assessment-page .goals-finished-assessed-view .goal-type-1:hover .assessment-specifications .assessment-container {
   padding-bottom: 0.5em;
   transition: max-height 0.3s ease-in, opacity 0.25s ease-in, margin 0s ease-out, padding 0s ease-out;
-  transition-delay: 0.02s;
+  transition-delay: 0.1s;
 }
 
 .h5p-goals-assessment-page .goals-assessment-view .assessment-container .assessment-rating {
@@ -90,7 +90,7 @@
   opacity: 0;
   padding: 0;
   transition: max-height 0.25s linear, opacity 0.25s linear, margin 0.3s ease-in, padding 0.3s ease-in;
-  transition-delay: 0.02s;
+  transition-delay: 0.1s;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-container .assessment-goal {
@@ -106,13 +106,13 @@
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-wrapper {
   margin-bottom: 0.5em;
   opacity: 0;
-  transition: max-height 0.6s ease-in, opacity 1s ease-in, margin 0s ease-out, padding 0s ease-out;
-  transition-delay: 0.02s;
+  transition: max-height 0.25s ease-in, opacity 0.3s ease-in, margin 0s ease-out, padding 0s ease-out;
+  transition-delay: 0.1s;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-wrapper.show {
   opacity: 1;
-  transition: opacity 1s ease-in;
+  transition: opacity 0.3s ease-in;
 }
 
 /* ---------------------------- Specifications ------------------------------- */
@@ -125,7 +125,7 @@
   padding: 0;
   margin: 0;
   transition: max-height 0.25s linear, opacity 0.25s linear, margin 0.3s ease-in, padding 0.3s ease-in;
-  transition-delay: 0.02s;
+  transition-delay: 0.1s;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .goal-type-1:hover .assessment-specifications .assessment-wrapper,
@@ -133,14 +133,14 @@
   max-height: 50em;
   opacity: 1;
   transition: max-height 0.3s ease-in, opacity 0.25s ease-in, margin 0s ease-out, padding 0s ease-out;
-  transition-delay: 0.02s;
+  transition-delay: 0.1s;
 }
 
 .h5p-goals-assessment-page .assessment-specifications .assessment-wrapper,
 .h5p-goals-assessment-page .goals-finished-assessed-view .goal-type-1:hover .assessment-specifications .assessment-wrapper {
   margin-bottom: 0.75em;
   transition: max-height 0.3s ease-in, opacity 0.25s ease-in, margin 0s ease-out, padding 0s ease-out;
-  transition-delay: 0.02s;
+  transition-delay: 0.1s;
 }
 
 .h5p-goals-assessment-page .goals-assessment-view .goal-type-1 .assessment-specifications,
@@ -149,13 +149,13 @@
   max-height: 50em;
   opacity: 1;
   transition: max-height 0.3s ease-in, opacity 0.25s ease-in, margin 0s ease-out, padding 0s ease-out;
-  transition-delay: 0.02s;
+  transition-delay: 0.1s;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .goal-type-1:hover .assessment-specifications .assessment-container input.rating-box {
   margin-right: 1em;
   transition: max-height 0.3s ease-in, opacity 0.25s ease-in, margin 0s ease-out, padding 0s ease-out;
-  transition-delay: 0.02s;
+  transition-delay: 0.1s;
 }
 
 /* ------------------------- Hover effects ---------------------------------- */
@@ -165,7 +165,7 @@
   opacity: 1;
   padding-top: 0.75em;
   transition: max-height 0.3s ease-in, opacity 0.25s ease-in, margin 0s ease-out, padding 0s ease-out;
-  transition-delay: 0.02s;
+  transition-delay: 0.1s;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-container:hover .assessment-goal {
@@ -199,14 +199,14 @@
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-category {
   opacity: 0;
   max-height: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.1s ease;
   color: #999;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-category.show-text {
   opacity: 1;
   max-height: none;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.1s ease;
 }
 
 .h5p-goals-assessment-page .goals-assessment-view,
