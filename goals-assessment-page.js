@@ -222,7 +222,7 @@ H5P.GoalsAssessmentPage = (function ($) {
     setTimeout(function () {
       self.finishedPreload = true;
       self.$inner.removeClass('preload');
-    }, 500);
+    }, 250);
   };
 
   /**
@@ -453,7 +453,7 @@ H5P.GoalsAssessmentPage = (function ($) {
             $goal.addClass('show');
             $category.addClass('show-text');
           }, 250);
-        }, 1000);
+        }, 350);
       }
     }
   };
