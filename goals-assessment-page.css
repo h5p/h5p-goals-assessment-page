@@ -215,6 +215,15 @@
   color: #fff;
 }
 
+.h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.show {
+  color: #333;
+}
+
+.h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.show.current,
+.h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.show.next {
+  color: #fff;
+}
+
 /* -------------------------- Preloading ------------------------------------ */
 
 .h5p-goals-assessment-page.preload .goals-finished-assessed-view .assessment-wrapper {
