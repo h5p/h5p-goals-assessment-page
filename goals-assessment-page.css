@@ -1,5 +1,6 @@
 .h5p-goals-assessment-page {
   padding: 0.5em 1em;
+  margin-bottom: 1em;
 }
 
 /* ----------------------------- Goal Assessment Header --------------------- */
@@ -211,6 +212,15 @@
 
 .h5p-goals-assessment-page .goals-assessment-view,
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-category .assessment-category-container {
+  color: #fff;
+}
+
+.h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.show {
+  color: #333;
+}
+
+.h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.show.current,
+.h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.show.next {
   color: #fff;
 }
 
