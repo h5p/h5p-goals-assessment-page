@@ -48,6 +48,7 @@
 
 .h5p-goals-assessment-page .goals-assessment-view .assessment-container {
   position: relative;
+  border: solid 1px #D6D6D6;
 }
 
 .h5p-goals-assessment-page .goals-assessment-view .assessment-wrapper.prev {
@@ -70,6 +71,7 @@
 .h5p-goals-assessment-page .assessment-counter {
   padding: 0.5em 1em;
   overflow: hidden;
+  color: #666;
 }
 
 .h5p-goals-assessment-page .assessment-container,
@@ -101,7 +103,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  color: #fff;
+  color: #666;
 }
 
 .h5p-goals-assessment-page .goals-finished-assessed-view .assessment-wrapper {
@@ -178,7 +180,7 @@
 .h5p-goals-assessment-page .assessment-container.goal-type-0,
 .h5p-goals-assessment-page .assessment-container.goal-type-1,
 .h5p-goals-assessment-page .assessment-container.goal-type-2 {
-  background-color: #1a73d9;
+  background-color: #fff;
 }
 
 /* ----------------------- Radio buttons styling -----------------------------*/
@@ -193,7 +195,7 @@
 }
 
 .h5p-goals-assessment-page .assessment-container label.rating-text:hover {
-  color: #fff;
+  color: #000;
 }
 
 /* --------------------- Category styling --------------------------------- */
@@ -235,4 +237,8 @@
   visibility: visible;
   max-height: 50em;
   opacity: 1;
+}
+
+.h5p-goals-assessment-page .goals-finished-assessed-view .assessment-container {
+  border: solid 1px #D6D6D6;
 }
