@@ -31,10 +31,6 @@
       "default":"Du har ikkje valgt mål enno."
     },
     {
-      "label":"Konkretiserte mål merkelapp",
-      "default":"Konkretiseringar"
-    },
-    {
       "label":"Tekst for \"Hjelpetekst\"-knapp",
       "description":"Tekst som vil visast på \"HjelpeTekst\"-knapp som vil visa tilleggs-infomasjon til brukaren.",
       "default":"Meir informasjon"
