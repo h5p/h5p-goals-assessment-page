@@ -3,26 +3,6 @@
   margin-bottom: 1em;
 }
 
-.h5p-goals-assessment-page .goals-assessment-header {
-  position: relative;
-}
-
-/* ----------------------------- Goal Assessment Header --------------------- */
-.h5p-goals-assessment-page .goals-assessment-help-text {
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  color: #1a73d9;
-  cursor: pointer;
-  font-size: 0.8em;
-  line-height: 3.6em;
-}
-
-.h5p-goals-assessment-page .goals-assessment-help-text:hover {
-  color: #1a4773;
-}
-
 /* Legend */
 .legend {
   padding: 0.5em;

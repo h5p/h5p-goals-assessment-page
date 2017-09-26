@@ -97,9 +97,9 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
   };
 
   var goalsAssessmentTemplate =
-    '<div class="goals-assessment-header">' +
-    ' <div class="goals-assessment-title" role="heading" tabindex="-1">{{{title}}}</div>' +
-    ' <button class="goals-assessment-help-text">{{{helpTextLabel}}}</button>' +
+    '<div class="page-header">' +
+    ' <div class="page-title" role="heading" tabindex="-1">{{{title}}}</div>' +
+    ' <button class="page-help-text">{{{helpTextLabel}}}</button>' +
     '</div>' +
     '<div class="goals-assessment-description">{{{description}}}</div>' +
     '<div class="legend" aria-hidden="true">' +
@@ -182,8 +182,8 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     this.$inner.append(Mustache.render(goalsAssessmentTemplate, this.params));
 
     this.$goals = $('.goals', this.$inner);
-    this.$pageTitle = $('.goals-assessment-title', this.$inner);
-    this.$helpButton = $('.goals-assessment-help-text', this.$inner);
+    this.$pageTitle = $('.page-title', this.$inner);
+    this.$helpButton = $('.page-help-text', this.$inner);
 
     this.initHelpTextButton();
   };
