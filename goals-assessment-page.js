@@ -260,7 +260,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     // Setup buttons
     var $ratingButtons = $goal.find('[role="radio"]');
     makeRadiosAccessible($ratingButtons);
-    H5P.JoubelUI.handleButtonClick($ratingButtons, function () {
+    H5P.DocumentationTool.handleButtonClick($ratingButtons, function () {
       var $currentElement = $(this);
 
       uncheck($ratingButtons);
