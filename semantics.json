@@ -62,13 +62,6 @@
     "default": "You have not chosen any goals yet."
   },
   {
-    "name": "goalSpecificationsLabel",
-    "label": "Goal specification label",
-    "importance": "low",
-    "type": "text",
-    "default": "Specifications"
-  },
-  {
     "name": "helpTextLabel",
     "label": "Label for help text",
     "importance": "low",

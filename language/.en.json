@@ -31,10 +31,6 @@
       "default": "You have not chosen any goals yet."
     },
     {
-      "label": "Goal specification label",
-      "default": "Specifications"
-    },
-    {
       "label": "Label for help text",
       "description": "Label for showing additional helpful information to the user.",
       "default": "More information"
