@@ -158,9 +158,9 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     // Array containing assessment categories,
     // makes it easier to extend categories at a later point.
     this.assessmentCategories = [
-      this.params.highRating,
+      this.params.lowRating,
       this.params.midRating,
-      this.params.lowRating
+      this.params.highRating
     ];
 
     this.currentGoals = [];
