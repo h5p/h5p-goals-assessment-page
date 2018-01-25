@@ -16,6 +16,9 @@
   "preloadedJs": [
     {
       "path": "goals-assessment-page.js"
+    },
+    {
+      "path": "xapi-generator.js"
     }
   ],
   "preloadedDependencies": [

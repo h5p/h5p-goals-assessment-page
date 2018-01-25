@@ -163,7 +163,12 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
       this.params.highRating
     ];
 
+    // this.xApiGenerator = new H5P.GoalsAssessmentPage.xApiGenerator(this.params.description, this.assessmentCategories);
+    this.xApiGenerator = new H5P.GoalsAssessmentPage.xApiGenerator(this.assessmentCategories);
+
     this.currentGoals = [];
+    this.state = {};
+    this.currentSelection;
   }
 
   GoalsAssessmentPage.prototype = Object.create(EventDispatcher.prototype);
@@ -270,6 +275,10 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
       // Save answer
       goalInstance.goalAnswer(selectedCategoryIndex);
       goalInstance.setTextualAnswer(self.assessmentCategories[selectedCategoryIndex]);
+
+      var xApiTemplate = self.createXAPIEventTemplate('interacted');
+      var xApiEvent = self.xApiGenerator.generateXApi(xApiTemplate, goalText, $currentElement.index());
+      self.trigger(xApiEvent);
     });
 
     // If already checked - update UI
@@ -295,6 +304,76 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
    */
   GoalsAssessmentPage.prototype.focus = function () {
     this.$pageTitle.focus();
+  };
+
+  /**
+   * Triggers an 'answered' xAPI event for all inputs
+   */
+  GoalsAssessmentPage.prototype.triggerAnsweredEvents = function () {
+    var self = this;
+    this.getAssessedGoals().goals.forEach(function(goal) {
+      var xApiTemplate = self.createXAPIEventTemplate('answered');
+      var xApiEvent = self.xApiGenerator.generateXApi(xApiTemplate, goal.text, goal.answer);
+      self.trigger(xApiEvent);
+    });
+  };
+
+  /**
+   * Helper function to return all xAPI data
+   * @returns {Array}
+   */
+  GoalsAssessmentPage.prototype.getXAPIDataFromChildren = function () {
+    var children = [];
+
+    var self = this;
+    this.getAssessedGoals().goals.forEach(function(goal) {
+      var xApiTemplate = self.createXAPIEventTemplate('answered');
+      var xApiEvent = self.xApiGenerator.generateXApi(xApiTemplate, goal.text, goal.answer);
+      children.push({
+        statement: xApiEvent.data.statement
+      });
+    });
+
+    return children;
+  };
+
+  /**
+   * Generate xAPI object definition used in xAPI statements.
+   * @return {Object}
+   */
+  GoalsAssessmentPage.prototype.getxAPIDefinition = function () {
+    var definition = {};
+
+    definition.interactionType = 'compound';
+    definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
+    definition.description = {
+      'en-US': ''
+    };
+
+    return definition;
+  };
+
+  /**
+   * Add the question itself to the definition part of an xAPIEvent
+   */
+  GoalsAssessmentPage.prototype.addQuestionToXAPI = function (xAPIEvent) {
+    var definition = xAPIEvent.getVerifiedStatementValue(['object', 'definition']);
+    $.extend(definition, this.getxAPIDefinition());
+  };
+
+  /**
+   * Get xAPI data.
+   * Contract used by report rendering engine.
+   *
+   * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-6}
+   */
+  GoalsAssessmentPage.prototype.getXAPIData = function () {
+    var xAPIEvent = this.createXAPIEventTemplate('compound');
+    this.addQuestionToXAPI(xAPIEvent);
+    return {
+      statement: xAPIEvent.data.statement,
+      children: this.getXAPIDataFromChildren()
+    };
   };
 
   return GoalsAssessmentPage;
