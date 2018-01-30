@@ -346,7 +346,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     definition.interactionType = 'compound';
     definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
     definition.description = {
-      'en-US': self.params.description
+      'en-US': self.params.title
     };
     definition.extensions = {
       'https://h5p.org/x-api/h5p-machine-name': 'H5P.GoalsAssessmentPage'

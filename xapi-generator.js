@@ -25,10 +25,7 @@ H5P.GoalsAssessmentPage.XAPIGenerator = (function ($) {
       },
       type: 'http://adlnet.gov/expapi/activities/cmi.interaction',
       interactionType: 'choice',
-      choices: choices,
-      extensions: {
-        'https://h5p.org/x-api/h5p-machine-name': 'H5P.GoalsAssessmentPage'
-      }
+      choices: choices
     };
   }
 
