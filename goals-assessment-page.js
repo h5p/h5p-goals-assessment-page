@@ -348,6 +348,9 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     definition.description = {
       'en-US': self.params.description
     };
+    definition.extensions = {
+      'https://h5p.org/x-api/h5p-machine-name': 'H5P.GoalsAssessmentPage'
+    };
 
     return definition;
   };
