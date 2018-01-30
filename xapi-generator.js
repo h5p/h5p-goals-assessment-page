@@ -27,7 +27,7 @@ H5P.GoalsAssessmentPage.XAPIGenerator = (function ($) {
       interactionType: 'choice',
       choices: choices,
       extensions: {
-        'https://h5p.org/x-api/h5p-machine-name': 'H5P.DocumentationTool'
+        'https://h5p.org/x-api/h5p-machine-name': 'H5P.GoalsAssessmentPage'
       }
     };
   }
