@@ -1,12 +1,13 @@
 var H5P = H5P || {};
 H5P.GoalsAssessmentPage = H5P.GoalsAssessmentPage || {};
+var $ = H5P.jQuery;
 
 /**
  * Generate xAPI statements
  */
-H5P.GoalsAssessmentPage.xApiGenerator = (function () {
+H5P.GoalsAssessmentPage.XAPIGenerator = (function ($) {
 
-  function xApiGenerator(alternatives) {
+  function XAPIGenerator(alternatives) {
 
     var choices = alternatives.map(function(alt, i) {
       return {
@@ -20,40 +21,45 @@ H5P.GoalsAssessmentPage.xApiGenerator = (function () {
     // Set up default response object
     this.event = {
       description: {
-        'en-US': ' ' // We don't actually know the language of the question
+        'en-US': '' // We don't actually know the language of the question
       },
       type: 'http://adlnet.gov/expapi/activities/cmi.interaction',
       interactionType: 'choice',
-      choices: choices
+      choices: choices,
+      extensions: {
+        'https://h5p.org/x-api/h5p-machine-name': 'H5P.DocumentationTool'
+      }
     };
   }
 
-  xApiGenerator.prototype.constructor = xApiGenerator;
+  XAPIGenerator.prototype.constructor = XAPIGenerator;
 
   /**
    * Extend xAPI template
    * @param {H5P.XAPIEvent} xApiTemplate xAPI event template
-   * @param {string} answer Answer to open ended question
+   * @param {string} goal Goal title
+   * @param {string} response Response to goal assessment
    * @return {H5P.XAPIEvent} Extended xAPI event
    */
-  xApiGenerator.prototype.generateXApi = function (xApiTemplate, question, answer) {
+  XAPIGenerator.prototype.generateXApi = function (xApiTemplate, goal, choice) {
+    var newTemplate = $.extend({}, xApiTemplate);
 
-    this.event.description['en-US'] = question;
+    this.event.description = goal;
 
-    const statement = xApiTemplate.data.statement;
-    Object.assign(statement, {
+    const statement = newTemplate.data.statement;
+    $.extend(statement, {
       result: {
-        response: answer
+        response: choice
       }
     });
 
     if (statement.object) {
       const definition = statement.object.definition;
-      Object.assign(definition, this.event);
+      $.extend(definition, this.event);
     }
 
-    return xApiTemplate;
+    return newTemplate;
   };
 
-  return xApiGenerator;
-})();
+  return XAPIGenerator;
+})($);

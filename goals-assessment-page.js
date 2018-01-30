@@ -163,8 +163,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
       this.params.highRating
     ];
 
-    // this.xApiGenerator = new H5P.GoalsAssessmentPage.xApiGenerator(this.params.description, this.assessmentCategories);
-    this.xApiGenerator = new H5P.GoalsAssessmentPage.xApiGenerator(this.assessmentCategories);
+    this.XAPIGenerator = new H5P.GoalsAssessmentPage.XAPIGenerator(this.assessmentCategories);
 
     this.currentGoals = [];
     this.state = {};
@@ -277,7 +276,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
       goalInstance.setTextualAnswer(self.assessmentCategories[selectedCategoryIndex]);
 
       var xApiTemplate = self.createXAPIEventTemplate('interacted');
-      var xApiEvent = self.xApiGenerator.generateXApi(xApiTemplate, goalText, $currentElement.index());
+      var xApiEvent = self.XAPIGenerator.generateXApi(xApiTemplate, goalText, $currentElement.index());
       self.trigger(xApiEvent);
     });
 
@@ -313,7 +312,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     var self = this;
     this.getAssessedGoals().goals.forEach(function(goal) {
       var xApiTemplate = self.createXAPIEventTemplate('answered');
-      var xApiEvent = self.xApiGenerator.generateXApi(xApiTemplate, goal.text, goal.answer);
+      var xApiEvent = self.XAPIGenerator.generateXApi(xApiTemplate, goal.text, goal.answer);
       self.trigger(xApiEvent);
     });
   };
@@ -328,7 +327,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     var self = this;
     this.getAssessedGoals().goals.forEach(function(goal) {
       var xApiTemplate = self.createXAPIEventTemplate('answered');
-      var xApiEvent = self.xApiGenerator.generateXApi(xApiTemplate, goal.text, goal.answer);
+      var xApiEvent = self.XAPIGenerator.generateXApi(xApiTemplate, goal.text, goal.answer);
       children.push({
         statement: xApiEvent.data.statement
       });
@@ -343,11 +342,11 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
    */
   GoalsAssessmentPage.prototype.getxAPIDefinition = function () {
     var definition = {};
-
+    var self = this;
     definition.interactionType = 'compound';
     definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
     definition.description = {
-      'en-US': ''
+      'en-US': self.params.description
     };
 
     return definition;
