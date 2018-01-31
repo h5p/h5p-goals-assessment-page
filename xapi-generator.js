@@ -41,7 +41,7 @@ H5P.GoalsAssessmentPage.XAPIGenerator = (function ($) {
   XAPIGenerator.prototype.generateXApi = function (xApiTemplate, goal, choice) {
     var newTemplate = $.extend({}, xApiTemplate);
 
-    this.event.description = goal;
+    this.event.description['en-US'] = goal;
 
     const statement = newTemplate.data.statement;
     $.extend(statement, {
