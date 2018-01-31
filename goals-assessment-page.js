@@ -163,8 +163,6 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
       this.params.highRating
     ];
 
-    this.XAPIGenerator = new H5P.GoalsAssessmentPage.XAPIGenerator(this.assessmentCategories);
-
     this.currentGoals = [];
     this.state = {};
     this.currentSelection;
@@ -275,9 +273,10 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
       goalInstance.goalAnswer(selectedCategoryIndex);
       goalInstance.setTextualAnswer(self.assessmentCategories[selectedCategoryIndex]);
 
-      var xApiTemplate = self.createXAPIEventTemplate('interacted');
-      var xApiEvent = self.XAPIGenerator.generateXApi(xApiTemplate, goalText, $currentElement.index());
-      self.trigger(xApiEvent);
+      var xAPIEvent = self.createXAPIEventTemplate('interacted');
+      self.addQuestionToGoalXAPI(xAPIEvent, goalText);
+      self.addResponseToGoalXAPI(xAPIEvent, $currentElement.index());
+      self.trigger(xAPIEvent);
     });
 
     // If already checked - update UI
@@ -311,8 +310,9 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
   GoalsAssessmentPage.prototype.triggerAnsweredEvents = function () {
     var self = this;
     this.getAssessedGoals().goals.forEach(function(goal) {
-      var xApiTemplate = self.createXAPIEventTemplate('answered');
-      var xApiEvent = self.XAPIGenerator.generateXApi(xApiTemplate, goal.text, goal.answer);
+      var xAPIEvent = self.createXAPIEventTemplate('answered');
+      self.addQuestionToGoalXAPI(xAPIEvent, goal.text);
+      self.addResponseToGoalXAPI(xAPIEvent, goal.answer);
       self.trigger(xApiEvent);
     });
   };
@@ -326,10 +326,11 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
 
     var self = this;
     this.getAssessedGoals().goals.forEach(function(goal) {
-      var xApiTemplate = self.createXAPIEventTemplate('answered');
-      var xApiEvent = self.XAPIGenerator.generateXApi(xApiTemplate, goal.text, goal.answer);
+      var xAPIEvent = self.createXAPIEventTemplate('answered');
+      self.addQuestionToGoalXAPI(xAPIEvent, goal.text);
+      self.addResponseToGoalXAPI(xAPIEvent, goal.answer);
       children.push({
-        statement: xApiEvent.data.statement
+        statement: xAPIEvent.data.statement
       });
     });
 
@@ -337,7 +338,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
   };
 
   /**
-   * Generate xAPI object definition used in xAPI statements.
+   * Generate xAPI object definition used in xAPI statements for the entire goals assessment page
    * @return {Object}
    */
   GoalsAssessmentPage.prototype.getxAPIDefinition = function () {
@@ -356,11 +357,58 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
   };
 
   /**
+   * Generate xAPI object definition used in xAPI statements for each goal
+   * @return {Object}
+   */
+  GoalsAssessmentPage.prototype.getGoalXAPIDefinition = function (goal) {
+    var definition = {};
+    var self = this;
+
+    var choices = self.assessmentCategories.map(function(alt, i) {
+      return {
+        id: '' + i,
+        description: {
+          'en-US': alt // We don't actually know the language at runtime
+        }
+      };
+    });
+
+    definition.interactionType = 'choice';
+    definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
+    definition.description = {
+      'en-US': goal // TODO
+    };
+    definition.choices = choices;
+
+    return definition;
+  };
+
+  /**
    * Add the question itself to the definition part of an xAPIEvent
    */
   GoalsAssessmentPage.prototype.addQuestionToXAPI = function (xAPIEvent) {
     var definition = xAPIEvent.getVerifiedStatementValue(['object', 'definition']);
     $.extend(definition, this.getxAPIDefinition());
+  };
+
+  /**
+   * Add the question itself to the definition part of an xAPIEvent for a goal
+   */
+  GoalsAssessmentPage.prototype.addQuestionToGoalXAPI = function (xAPIEvent, goal) {
+    var definition = xAPIEvent.getVerifiedStatementValue(['object', 'definition']);
+    $.extend(definition, this.getGoalXAPIDefinition(goal));
+  };
+
+  /**
+   * Add the response part to an xAPI event for each goal
+   *
+   * @param {H5P.XAPIEvent} xAPIEvent
+   *  The xAPI event we will add a response to
+   * @param {number} answer The response
+   */
+  GoalsAssessmentPage.prototype.addResponseToGoalXAPI = function (xAPIEvent, answer) {
+    xAPIEvent.data.statement.result = {}; // Convert to a string
+    xAPIEvent.data.statement.result.response = answer + ''; // Convert to a string
   };
 
   /**
