@@ -358,9 +358,10 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
 
   /**
    * Generate xAPI object definition used in xAPI statements for each goal
+   * @param {string} goalText Title of the goal
    * @return {Object}
    */
-  GoalsAssessmentPage.prototype.getGoalXAPIDefinition = function (goal) {
+  GoalsAssessmentPage.prototype.getGoalXAPIDefinition = function (goalText) {
     var definition = {};
     var self = this;
 
@@ -376,7 +377,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     definition.interactionType = 'choice';
     definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
     definition.description = {
-      'en-US': goal // TODO
+      'en-US': goalText
     };
     definition.choices = choices;
 
@@ -393,10 +394,11 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
 
   /**
    * Add the question itself to the definition part of an xAPIEvent for a goal
+   * @param {string} goal The goal title
    */
-  GoalsAssessmentPage.prototype.addQuestionToGoalXAPI = function (xAPIEvent, goal) {
+  GoalsAssessmentPage.prototype.addQuestionToGoalXAPI = function (xAPIEvent, goalText) {
     var definition = xAPIEvent.getVerifiedStatementValue(['object', 'definition']);
-    $.extend(definition, this.getGoalXAPIDefinition(goal));
+    $.extend(definition, this.getGoalXAPIDefinition(goalText));
   };
 
   /**
