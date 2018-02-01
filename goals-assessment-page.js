@@ -313,7 +313,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
       var xAPIEvent = self.createXAPIEventTemplate('answered');
       self.addQuestionToGoalXAPI(xAPIEvent, goal.text);
       self.addResponseToGoalXAPI(xAPIEvent, goal.answer);
-      self.trigger(xApiEvent);
+      self.trigger(xAPIEvent);
     });
   };
 
