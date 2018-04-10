@@ -136,9 +136,10 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
    * @param {Number} id Content identification
    * @returns {Object} GoalsAssessmentPage GoalsAssessmentPage instance
    */
-  function GoalsAssessmentPage(params, id) {
+  function GoalsAssessmentPage(params, id, extras) {
     EventDispatcher.call(this);
     this.id = id;
+    this.extras = extras;
 
     // Set default behavior.
     this.params = $.extend({}, {
@@ -214,7 +215,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
    * @returns {String} page title
    */
   GoalsAssessmentPage.prototype.getTitle = function () {
-    return this.params.title;
+    return H5P.createTitle((this.extras && this.extras.metadata && this.extras.metadata.title) ? this.extras.metadata.title : 'Goals Assessment Page');
   };
 
   /**
