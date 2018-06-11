@@ -31,13 +31,13 @@
       "default": "Et ole valinnut yhtään tavoitetta vielä."
     },
     {
-      "label":"Teksti osoittamaan lisätietoa",
-      "description":"Lisätietoa ilmaiseva teksti käyttäjälle.",
-      "default":"Lisää tietoa"
+      "label": "Teksti osoittamaan lisätietoa",
+      "description": "Lisätietoa ilmaiseva teksti käyttäjälle.",
+      "default": "Lisää tietoa"
     },
     {
-      "label":"Lisätietoteksti",
-      "description":"Tähän voit täyttää tekstiä lisätietona käyttäjälle."
+      "label": "Lisätietoteksti",
+      "description": "Tähän voit täyttää tekstiä lisätietona käyttäjälle."
     }
   ]
 }
