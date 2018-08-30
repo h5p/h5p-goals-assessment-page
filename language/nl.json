@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "Titel",
-      "description": "Titel voor de beoordeling van de doelstellingenpagina.",
-      "default": "Beoordeling doelstellingen"
-    },
-    {
       "label": "Omschrijving",
       "description": "Omschrijving van de beoordeling van de doelstellingenpagina",
       "default": "Waardeer de doelstellingen die je gekozen hebt op de doelstellingenpagina."

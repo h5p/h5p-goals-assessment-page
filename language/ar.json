@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "العنوان",
-      "description": "عنوان صفحة تقييم الأهداف.",
-      "default": "Goals assessment"
-    },
-    {
       "label": "الوصف",
       "description": "وصف صفحة تقييم الأهداف.",
       "default": "Rate the goals that you have chosen in the goals page."
