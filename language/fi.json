@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "Otsikko",
-      "description": "Otsikko sivulle tavoitteiden jälkiarviointiin.",
-      "default": "Tavoitteiden jälkiarviointi"
-    },
-    {
       "label": "Kuvaus",
       "description": "Kuvaus tai ohje tekijälle jälkiarviointiin.",
       "default": "Arvioi tavoitesivulla valitsemasi tavoitteet."

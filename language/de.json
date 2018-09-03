@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "Titel",
-      "description": "Titel für die Zielbewertungsseite.",
-      "default": "Zielbewertung"
-    },
-    {
       "label": "Beschreibung",
       "description": "Beschreibung für die Zielbewertungsseite.",
       "default": "Die Ziele auf der Zielseite bewerten."

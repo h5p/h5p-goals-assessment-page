@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "Titre",
-      "description": "Titre pour la page d'évaluation des objectifs.",
-      "default": "Evaluation des objectifs"
-    },
-    {
       "label": "Description",
       "description": "Description de la page d'évaluation des objectifs.",
       "default": "Evaluer les objectifs que vous avez choisis dans la page des objectifs."
