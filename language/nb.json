@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "Tittel",
-      "description": "Tittel for måloppnåelsessiden.",
-      "default": "Måloppnåelse"
-    },
-    {
       "label": "Beskrivelse av måloppnåelsessiden",
       "description": "Beskriv aktivitetene brukeren skal gjennomføre på måloppnåelsessiden.",
       "default": "Vurder hvilken grad av oppnåelse du har hatt på målene du valgte på målsiden."

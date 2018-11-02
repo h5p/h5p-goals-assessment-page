@@ -1,11 +1,6 @@
 {
   "semantics": [
     {
-      "label": "標題文字",
-      "description": "目標評估頁面上顯示的標題。",
-      "default": "目標評估頁面"
-    },
-    {
       "label": "說明文字",
       "description": "目標評估頁面上顯示說明。",
       "default": "評估你為你的目標實踐的程度。"
