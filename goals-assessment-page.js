@@ -167,6 +167,26 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     this.currentGoals = [];
     this.state = {};
     this.currentSelection;
+
+    /**
+     * Implements resume (save content state)
+     *
+     * @method getCurrentState
+     * @public
+     * @returns [array] array containing goals assessments state
+     */
+    this.getCurrentState = function () {
+      var state = [];
+
+      this.currentGoals.forEach(function (goal) {
+        state.push({
+          uniqueId: goal.uniqueId,
+          value: goal.answer
+        });
+      });
+
+      return state;
+    };
   }
 
   GoalsAssessmentPage.prototype = Object.create(EventDispatcher.prototype);
@@ -251,6 +271,16 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
       return;
     }
 
+    // Set previous state value for goal instance
+    if (self.previousState && self.previousState.length) {
+      self.previousState.forEach(function (state) {
+        if (state.uniqueId === goalInstance.getUniqueId()) {
+          goalInstance.goalAnswer(state.value);
+          goalInstance.setTextualAnswer(self.assessmentCategories[state.value] || '');
+        }
+      });
+    }
+
     self.currentGoals.push(goalInstance);
 
     var $goal = $(Mustache.render(goalTemplate, {
@@ -274,6 +304,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
       goalInstance.goalAnswer(selectedCategoryIndex);
       goalInstance.setTextualAnswer(self.assessmentCategories[selectedCategoryIndex]);
 
+      self.setPreviousState(self.getCurrentState());
       var xAPIEvent = self.createXAPIEventTemplate('interacted');
       self.addQuestionToGoalXAPI(xAPIEvent, goalText);
       self.addResponseToGoalXAPI(xAPIEvent, $currentElement.index());
@@ -296,6 +327,14 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
       goals: this.currentGoals,
       categories: this.assessmentCategories
     };
+  };
+
+  /**
+   * Stores previous state with the instance object
+   * @param state
+   */
+  GoalsAssessmentPage.prototype.setPreviousState = function (state) {
+    this.previousState = state || false;
   };
 
   /**
