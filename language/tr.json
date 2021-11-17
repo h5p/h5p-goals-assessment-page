@@ -33,6 +33,18 @@
     {
       "label": "Ek yardım bilgilerini doldurun",
       "description": "Burada, kullanıcı için ek yararlı bilgileri doldurabilirsiniz."
+    },
+    {
+      "label": "Legend header",
+      "default": "Possible ratings:"
+    },
+    {
+      "label": "Goal header",
+      "default": "Goals"
+    },
+    {
+      "label": "Rating header",
+      "default": "Rating"
     }
   ]
 }
