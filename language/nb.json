@@ -35,16 +35,16 @@
       "description": "Her kan du fylle inn ekstra nyttig informasjon om hvordan brukeren skal bruke denne siden."
     },
     {
-      "label": "Legend header",
-      "default": "Possible ratings:"
+      "label": "Overskrift for vurderingsblokk",
+      "default": "Mulige vurderinger:"
     },
     {
-      "label": "Goal header",
-      "default": "Goals"
+      "label": "Overskrift for mål",
+      "default": "Mål"
     },
     {
-      "label": "Rating header",
-      "default": "Rating"
+      "label": "Overskrift for vurdering",
+      "default": "Vurdering"
     }
   ]
 }
