@@ -35,16 +35,16 @@
       "description": "Hier kun je aanvullende nuttige informatie invullen voor de gebruiker."
     },
     {
-      "label": "Legend header",
-      "default": "Possible ratings:"
+      "label": "Legendakop",
+      "default": "Mogelijke waarderingen:"
     },
     {
-      "label": "Goal header",
-      "default": "Goals"
+      "label": "Koptekst van doelstelling",
+      "default": "Doelstellingen"
     },
     {
-      "label": "Rating header",
-      "default": "Rating"
+      "label": "Koptekst van waardering",
+      "default": "Waardering"
     }
   ]
 }

@@ -35,16 +35,16 @@
       "description": "Aquí puede escribir información útil adicional para el usuario."
     },
     {
-      "label": "Legend header",
-      "default": "Possible ratings:"
+      "label": "Encabezado de leyenda",
+      "default": "Valoraciones posibles:"
     },
     {
-      "label": "Goal header",
-      "default": "Goals"
+      "label": "Encabezado de meta",
+      "default": "Metas"
     },
     {
-      "label": "Rating header",
-      "default": "Rating"
+      "label": "Encabezado de valoraciones",
+      "default": "Valoración"
     }
   ]
 }
