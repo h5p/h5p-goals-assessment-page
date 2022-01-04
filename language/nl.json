@@ -1,32 +1,32 @@
 {
   "semantics": [
     {
-      "label": "Omschrijving",
-      "description": "Omschrijving van de beoordeling van de doelstellingenpagina",
+      "label": "Beschrijving",
+      "description": "Omschrijving van de beoordeling van de doelstellingenpagina.",
       "default": "Waardeer de doelstellingen die je gekozen hebt op de doelstellingenpagina."
     },
     {
-      "label": "Tekst lage waardering",
-      "description": "Tekst voor de laagste waardering.",
+      "label": "Tekst voor lage waardering",
+      "description": "Tekst voor laagste waardering.",
       "default": "Weinig geleerd"
     },
     {
-      "label": "Tekst gemiddelde waardering",
-      "description": "Tekst voor de gemiddelde waardering.",
+      "label": "Tekst voor gemiddelde waardering",
+      "description": "Tekst voor gemiddelde waardering.",
       "default": "Redelijk wat geleerd"
     },
     {
-      "label": "Tekst hoge waardering",
-      "description": "Tekst voor de hoogste waardering.",
+      "label": "Tekst voor hoge waardering",
+      "description": "Tekst voor hoogste waardering.",
       "default": "Veel geleerd"
     },
     {
-      "label": "Tekst geen doelstellingen",
-      "description": "Feedback tekst als er geen doelstellingen zijn gekozen.",
+      "label": "Tekst voor geen doelstellingen",
+      "description": "Feedbacktekst als er geen doelstellingen zijn gekozen.",
       "default": "Je hebt nog geen doelstellingen gekozen."
     },
     {
-      "label": "Label voor de help tekst",
+      "label": "Label voor helptekst",
       "description": "Label om aanvullende nuttige informatie aan de gebruiker te tonen.",
       "default": "Meer informatie"
     },
