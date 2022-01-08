@@ -27,7 +27,7 @@
     },
     {
       "label": "Label für den Hilfstext",
-      "description": "Label, um dem Benutzer zusätzliche hilfreiche Informationen anzuzeigen",
+      "description": "Hinweistext zum Anzeigen zusätzlicher hilfreicher Informationen für den Benutzer.",
       "default": "Weitere Informationen"
     },
     {
