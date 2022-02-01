@@ -35,16 +35,16 @@
       "description": "여기에 사용자를 위한 추가 유용한 정보를 기입할 수 있습니다."
     },
     {
-      "label": "Legend header",
-      "default": "Possible ratings:"
+      "label": "범례 제목",
+      "default": "가능한 평가:"
     },
     {
-      "label": "Goal header",
-      "default": "Goals"
+      "label": "목표 제목",
+      "default": "목표"
     },
     {
-      "label": "Rating header",
-      "default": "Rating"
+      "label": "평가 제목",
+      "default": "평가"
     }
   ]
 }
