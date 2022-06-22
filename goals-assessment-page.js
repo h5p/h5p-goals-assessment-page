@@ -97,7 +97,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
   };
 
   var goalsAssessmentTemplate =
-    '<div class="page-header" role="heading" tabindex="-1">' +
+    '<div class="page-header" role="heading" tabindex="-1" aria-label="{{{a11yFriendlyTitle}}}">' +
     ' <div class="page-title">{{{title}}}</div>' +
     ' <button class="page-help-text">{{{helpTextLabel}}}</button>' +
     '</div>' +
@@ -144,6 +144,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     // Set default behavior.
     this.params = $.extend({
       title: this.getTitle(),
+      a11yFriendlyTitle: this.getTitle(false),
       description: '',
       lowRating: 'Learned little',
       midRating: 'Learned something',
@@ -212,10 +213,12 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
 
   /**
    * Get page title
+   * @param {boolean} turncatedTitle turncate title flag
    * @returns {String} page title
    */
-  GoalsAssessmentPage.prototype.getTitle = function () {
-    return H5P.createTitle((this.extras && this.extras.metadata && this.extras.metadata.title) ? this.extras.metadata.title : 'Goals Assessment');
+  GoalsAssessmentPage.prototype.getTitle = function (turncatedTitle = true) {
+    const pageTitle = (this.extras && this.extras.metadata && this.extras.metadata.title) ? this.extras.metadata.title : 'Goals Assessment';
+    return turncatedTitle ? H5P.createTitle(pageTitle) : pageTitle;
   };
 
   /**
