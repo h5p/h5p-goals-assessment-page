@@ -35,16 +35,16 @@
       "description": "Zde můžete vyplnit další užitečné informace pro uživatele."
     },
     {
-      "label": "Legend header",
-      "default": "Possible ratings:"
+      "label": "Hlavička legendy",
+      "default": "Možná hodnocení:"
     },
     {
-      "label": "Goal header",
-      "default": "Goals"
+      "label": "Hlavička cíle",
+      "default": "Cíle"
     },
     {
-      "label": "Rating header",
-      "default": "Rating"
+      "label": "Záhlaví hodnocení",
+      "default": "Hodnocení"
     }
   ]
 }

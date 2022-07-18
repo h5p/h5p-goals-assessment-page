@@ -6,19 +6,19 @@
       "default": "Avalie os objetivos que você escolheu na página de objetivos."
     },
     {
-      "label": "Texto para classificação baixa",
-      "description": "Texto para a pior classificação.",
-      "default": "Aprendi pouco"
+      "label": "Texto para avaliação baixa",
+      "description": "Texto para a pior avaliação.",
+      "default": "Pouco aprendido"
     },
     {
-      "label": "Texto para classificação mediana",
-      "description": "Texto para classificação mediana.",
-      "default": "Aprendi algumas coisas"
+      "label": "Texto para avaliação mediana",
+      "description": "Texto para avaliação mediana.",
+      "default": "Aprendeu algo"
     },
     {
-      "label": "Texto para classificação alta",
-      "description": "Texto para ótima classificação.",
-      "default": "Aprendi muito"
+      "label": "Texto para avaliação alta",
+      "description": "Texto para avaliação ótima.",
+      "default": "Aprendeu muito"
     },
     {
       "label": "Texto para nenhum objetivo",
@@ -27,24 +27,24 @@
     },
     {
       "label": "Texto do rótulo de ajuda",
-      "description": "Rótulo para mostrar informações úteis adicionas ao usuário.",
-      "default": "Mias informações"
+      "description": "Rótulo para mostrar informações adicionais úteis ao usuário.",
+      "default": "Mais informação"
     },
     {
       "label": "Preencha as informações adicionais de ajuda",
-      "description": "Aqui você pode inserir informações úteis adicionais para o usuário."
+      "description": "Aqui você pode inserir informações adicionais úteis para o usuário."
     },
     {
-      "label": "Legend header",
-      "default": "Possible ratings:"
+      "label": "Cabeçalho da legenda",
+      "default": "Possíveis avaliações:"
     },
     {
-      "label": "Goal header",
-      "default": "Goals"
+      "label": "Cabeçalho do objetivo",
+      "default": "Objetivos"
     },
     {
-      "label": "Rating header",
-      "default": "Rating"
+      "label": "Cabeçalho de avaliação",
+      "default": "Avaliação"
     }
   ]
 }
