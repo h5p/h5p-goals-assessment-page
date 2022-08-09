@@ -35,16 +35,16 @@
       "description": "Εδώ μπορείτε να συμπληρώσετε πρόσθετες χρήσιμες πληροφορίες για τον χρήστη."
     },
     {
-      "label": "Legend header",
-      "default": "Possible ratings:"
+      "label": "Κεφαλίδα υπομνήματος",
+      "default": "Πιθανές βαθμολογίες:"
     },
     {
-      "label": "Goal header",
-      "default": "Goals"
+      "label": "Κεφαλίδα Στόχων",
+      "default": "Στόχοι"
     },
     {
-      "label": "Rating header",
-      "default": "Rating"
+      "label": "Κεφαλίδα βαθμολογίας",
+      "default": "Βαθμολογία"
     }
   ]
 }
