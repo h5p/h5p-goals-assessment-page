@@ -35,16 +35,16 @@
       "description": "Besedilo se udeležencem prikaže v pogovornem oknu."
     },
     {
-      "label": "Legend header",
-      "default": "Possible ratings:"
+      "label": "Naslov legende",
+      "default": "Možne ocene:"
     },
     {
-      "label": "Goal header",
-      "default": "Goals"
+      "label": "Naslov stolpca s cilji",
+      "default": "Cilj"
     },
     {
-      "label": "Rating header",
-      "default": "Rating"
+      "label": "Naslov stolpca z ocenami",
+      "default": "Ocena"
     }
   ]
 }
