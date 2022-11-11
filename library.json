@@ -21,12 +21,5 @@
     {
       "path": "goals-assessment-page.js"
     }
-  ],
-  "preloadedDependencies": [
-    {
-      "machineName": "MustacheJS",
-      "majorVersion": 1,
-      "minorVersion": 0
-    }
   ]
 }
