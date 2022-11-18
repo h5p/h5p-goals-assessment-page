@@ -96,40 +96,6 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     });
   };
 
-  var goalsAssessmentTemplate =
-    '<div class="page-header" role="heading" tabindex="-1" aria-label="{{{a11yFriendlyTitle}}}">' +
-    ' <div class="page-title">{{{title}}}</div>' +
-    ' <button class="page-help-text">{{{helpTextLabel}}}</button>' +
-    '</div>' +
-    '<div class="goals-assessment-description">{{{description}}}</div>' +
-    '<div class="legend" aria-hidden="true">' +
-    '  <span class="legend-header">{{{legendHeader}}}</span>' +
-    '  <ul class="ratings">' +
-    '    <li class="rating low">{{{lowRating}}}</li> ' +
-    '    <li class="rating mid">{{{midRating}}}</li> ' +
-    '    <li class="rating high">{{{highRating}}}</li> ' +
-    '  </ul>' +
-    '</div>' +
-    '<div class="goals-assessment-view">' +
-    ' <div class="goals-header">' +
-    '  <span class="goal-name-header">{{{goalHeader}}}</span>' +
-    '  <span class="rating-header">{{{ratingHeader}}}</span>' +
-    ' </div>' +
-    ' <div>' +
-    '  <ul class="goals">' +
-    '  </ul>' +
-    '</div>';
-
-  var goalTemplate =
-   '<li class="goal">' +
-   ' <span class="goal-name">{{{goalName}}}</span>' +
-   ' <ul role="radiogroup" class="rating-container">' +
-   '  <li role="radio" class="rating low" aria-label="{{{lowRating}}}"></li>' +
-   '  <li role="radio" class="rating mid" aria-label="{{{midRating}}}"></li>' +
-   '  <li role="radio" class="rating high" aria-label="{{{highRating}}}"></li>' +
-   ' </ul>' +
-   '</li>';
-
   /**
    * Initialize module.
    * @param {Object} params Behavior settings
@@ -179,36 +145,105 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
    * @param {jQuery} $container The container which will be appended to.
    */
   GoalsAssessmentPage.prototype.attach = function ($container) {
-    this.$inner = $('<div>', {
+    var self = this;
+    self.$inner = $('<div>', {
       'class': MAIN_CONTAINER
     }).appendTo($container);
 
-    this.$inner.append(Mustache.render(goalsAssessmentTemplate, this.params));
+    self.$pageTitle = $('<div>', {
+      'class': 'page-header',
+      role: 'heading',
+      tabindex: -1,
+      'aria-label': self.params.a11yFriendlyTitle,
+      append: $('<div>', {
+        class: 'page-title',
+        html: self.params.title
+      }),
+      appendTo: self.$inner
+    });
 
-    this.$goals = $('.goals', this.$inner);
-    this.$pageTitle = $('.page-header', this.$inner);
-    this.$helpButton = $('.page-help-text', this.$inner);
-
-    this.initHelpTextButton();
-  };
-
-  /**
-   * Create help text functionality for reading more about the task
-   */
-  GoalsAssessmentPage.prototype.initHelpTextButton = function () {
-    var self = this;
-
-    if (this.params.helpText !== undefined && this.params.helpText.length) {
-      self.$helpButton.on('click', function () {
-        self.trigger('open-help-dialog', {
-          title: self.params.title,
-          helpText: self.params.helpText
-        });
+    if (self.params.helpText !== undefined && self.params.helpText.length !== 0) {
+      self.$helpButton = $('<button>', {
+        'class': 'page-help-text',
+        html: self.params.helpTextLabel,
+        click: function () {
+          self.trigger('open-help-dialog', {
+            title: self.params.title,
+            helpText: self.params.helpText
+          });
+        },
+        appendTo: self.$pageTitle
       });
     }
-    else {
-      self.$helpButton.remove();
-    }
+
+    $('<div>', {
+      class: 'goals-assessment-description',
+      html: self.params.description,
+      appendTo: self.$inner
+    });
+
+    const $legend = $('<div>', {
+      class: 'legend',
+      'aria-hidden': true,
+      appendTo: self.$inner
+    });
+
+    $('<span>', {
+      class: 'legend-header',
+      html: self.params.legendHeader,
+      appendTo: $legend
+    });
+
+    $('<ul>', {
+      class: 'ratings',
+      append: [
+        $('<li>', {
+          class: 'rating low',
+          html: self.params.lowRating
+        }),
+        $('<li>', {
+          class: 'rating mid',
+          html: self.params.midRating
+        }),
+        $('<li>', {
+          class: 'rating high',
+          html: self.params.highRating
+        })
+      ],
+      appendTo: $legend
+    });
+
+    const $goalsAssessmentView = $('<div>', {
+      class: 'goals-assessment-view',
+      appendTo: self.$inner
+    });
+
+    self.$goalsHeader = $('<div>', {
+      class: 'goals-header',
+      appendTo: $goalsAssessmentView
+    });
+
+    $('<span>', {
+      class: 'goal-name-header',
+      html: self.params.goalHeader,
+      appendTo: self.$goalsHeader
+    });
+
+    $('<span>', {
+      class: 'rating-header',
+      html: self.params.ratingHeader,
+      appendTo: self.$goalsHeader
+    });
+
+    self.$goals = $('<ul>', {
+      class: 'goals'
+    });
+
+    $('<div>', {
+      class: 'rating-header',
+      html: self.$goals,
+      appendTo: $goalsAssessmentView
+    });
   };
 
   /**
@@ -256,12 +291,43 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
 
     self.currentGoals.push(goalInstance);
 
-    var $goal = $(Mustache.render(goalTemplate, {
-      goalName: goalText,
-      lowRating: self.params.lowRating,
-      midRating: self.params.midRating,
-      highRating: self.params.highRating
-    })).appendTo(self.$goals);
+    var $goal = $('<li>', {
+      class: 'goal',
+      appendTo: self.$goals
+    });
+
+    $('<span>', {
+      class: 'goal-name',
+      html: goalText,
+      appendTo: $goal
+    });
+
+    const $ratingContainer = $('<ul>', {
+      'role': 'radiogroup',
+      class: 'rating-container',
+      appendTo: $goal
+    });
+
+    $('<li>', {
+      role: 'radio',
+      class: 'rating low',
+      'aria-label': self.params.lowRating,
+      appendTo: $ratingContainer
+    });
+
+    $('<li>', {
+      role: 'radio',
+      class: 'rating mid',
+      'aria-label': self.params.midRating,
+      appendTo: $ratingContainer
+    });
+
+    $('<li>', {
+      role: 'radio',
+      class: 'rating high',
+      'aria-label': self.params.highRating,
+      appendTo: $ratingContainer
+    });
 
     // Setup buttons
     var $ratingButtons = $goal.find('[role="radio"]');
