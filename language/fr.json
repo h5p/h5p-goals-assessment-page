@@ -35,16 +35,16 @@
       "description": "Ici vous pouvez saisir l'information complémentaire utile pour l'utilisateur."
     },
     {
-      "label": "Legend header",
-      "default": "Possible ratings:"
+      "label": "En-tête de légende",
+      "default": "Notations possibles :"
     },
     {
-      "label": "Goal header",
-      "default": "Goals"
+      "label": "En-tête d'objectif",
+      "default": "Objectifs"
     },
     {
-      "label": "Rating header",
-      "default": "Rating"
+      "label": "En-tête d'évaluation",
+      "default": "Évaluation"
     }
   ]
 }
