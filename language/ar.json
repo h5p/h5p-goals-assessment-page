@@ -35,16 +35,16 @@
       "description": "هنا يمكنك ملء معلومات مفيدة إضافية للمستخدم."
     },
     {
-      "label": "Legend header",
-      "default": "Possible ratings:"
+      "label": "رأس وسيلة الإيضاح",
+      "default": "التصنيفات المحتملة:"
     },
     {
-      "label": "Goal header",
-      "default": "Goals"
+      "label": "رأس الهدف",
+      "default": "الأهداف"
     },
     {
-      "label": "Rating header",
-      "default": "Rating"
+      "label": "رأس التصنيف",
+      "default": "التصنيف"
     }
   ]
 }

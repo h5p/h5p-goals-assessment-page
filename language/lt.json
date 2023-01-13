@@ -1,0 +1,50 @@
+{
+  "semantics": [
+    {
+      "description": "Tikslų vertinimo puslapio aprašymas.",
+      "label": "Aprašymas",
+      "default": "Įvertinkite tikslus, kuriuos pasirinkote tikslų puslapyje."
+    },
+    {
+      "label": "Low rating text",
+      "default": "Learned little",
+      "description": "Tekstas prasčiausiam įvertinimui."
+    },
+    {
+      "description": "Text for middle rating.",
+      "label": "Medium rating text",
+      "default": "Kažko išmoko"
+    },
+    {
+      "label": "High rating text",
+      "default": "Daug išmoko",
+      "description": "Text for great rating."
+    },
+    {
+      "description": "Feedback text when no goals have been created.",
+      "label": "No goals text",
+      "default": "You have not chosen any goals yet."
+    },
+    {
+      "label": "Label for help text",
+      "default": "Daugiau informacijos",
+      "description": "Label for showing additional helpful information to the user."
+    },
+    {
+      "description": "Here you can fill in additional helpful information for the user.",
+      "label": "Fill in additional help information"
+    },
+    {
+      "default": "Possible ratings:",
+      "label": "Legend header"
+    },
+    {
+      "default": "Goals",
+      "label": "Goal header"
+    },
+    {
+      "default": "Rating",
+      "label": "Rating header"
+    }
+  ]
+}
