@@ -218,6 +218,8 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
       appendTo: self.$inner
     });
 
+    const goalsHeaderId = H5P.createUUID();
+
     self.$goalsHeader = $('<div>', {
       class: 'goals-header',
       appendTo: $goalsAssessmentView
@@ -226,17 +228,21 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     $('<span>', {
       class: 'goal-name-header',
       html: self.params.goalHeader,
-      appendTo: self.$goalsHeader
+      appendTo: self.$goalsHeader,
+      id: goalsHeaderId
     });
 
     $('<span>', {
       class: 'rating-header',
       html: self.params.ratingHeader,
+      'aria-hidden': 'true',
       appendTo: self.$goalsHeader
     });
 
     self.$goals = $('<ul>', {
-      class: 'goals'
+      class: 'goals',
+      'aria-labelledby': goalsHeaderId,
+      role: 'list' // Some screen readers expect explicit role to read label
     });
 
     $('<div>', {
@@ -291,6 +297,8 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
 
     self.currentGoals.push(goalInstance);
 
+    const goalId = H5P.createUUID();
+
     var $goal = $('<li>', {
       class: 'goal',
       appendTo: self.$goals
@@ -299,33 +307,35 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
     $('<span>', {
       class: 'goal-name',
       html: goalText,
-      appendTo: $goal
+      appendTo: $goal,
+      id: goalId
     });
 
     const $ratingContainer = $('<ul>', {
       'role': 'radiogroup',
       class: 'rating-container',
+      'aria-labelledby': goalId,
       appendTo: $goal
     });
 
     $('<li>', {
       role: 'radio',
       class: 'rating low',
-      'aria-label': self.params.lowRating,
+      'aria-label': `${self.params.ratingHeader}: ${self.params.lowRating}`,
       appendTo: $ratingContainer
     });
 
     $('<li>', {
       role: 'radio',
       class: 'rating mid',
-      'aria-label': self.params.midRating,
+      'aria-label': `${self.params.ratingHeader}: ${self.params.midRating}`,
       appendTo: $ratingContainer
     });
 
     $('<li>', {
       role: 'radio',
       class: 'rating high',
-      'aria-label': self.params.highRating,
+      'aria-label': `${self.params.ratingHeader}: ${self.params.highRating}`,
       appendTo: $ratingContainer
     });
 
