@@ -6,8 +6,8 @@
       "default": "Įvertinkite tikslus, kuriuos pasirinkote tikslų puslapyje."
     },
     {
-      "label": "Low rating text",
-      "default": "Learned little",
+      "label": "Žemo įvertinimo tekstas",
+      "default": "Nepakankamai išmokta",
       "description": "Tekstas prasčiausiam įvertinimui."
     },
     {
