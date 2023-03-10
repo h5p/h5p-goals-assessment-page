@@ -35,16 +35,16 @@
       "description": "Here you can fill in additional helpful information for the user."
     },
     {
-      "label": "Legend header",
-      "default": "Possible ratings:"
+      "label": "Cabeçalho da legenda",
+      "default": "Possíveis avaliações:"
     },
     {
-      "label": "Goal header",
-      "default": "Goals"
+      "label": "Cabeçalho do objetivo",
+      "default": "Objetivos"
     },
     {
-      "label": "Rating header",
-      "default": "Rating"
+      "label": "Cabeçalho de avaliação",
+      "default": "Avaliação"
     }
   ]
 }
