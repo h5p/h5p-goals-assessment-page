@@ -11,8 +11,8 @@
       "description": "Tekstas prasčiausiam įvertinimui."
     },
     {
-      "description": "Text for middle rating.",
-      "label": "Medium rating text",
+      "description": "Tekstas vidutiniam įvertinimui.",
+      "label": "Vidutinio įvertinimo tekstas",
       "default": "Kažko išmoko"
     },
     {
