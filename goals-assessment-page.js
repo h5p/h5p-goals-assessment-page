@@ -306,7 +306,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
 
     $('<span>', {
       class: 'goal-name',
-      html: goalText,
+      text: goalText,
       appendTo: $goal,
       id: goalId
     });
