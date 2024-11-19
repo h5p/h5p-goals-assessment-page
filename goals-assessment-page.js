@@ -9,7 +9,7 @@ H5P.GoalsAssessmentPage = (function ($, EventDispatcher) {
   "use strict";
 
   // CSS Classes:
-  var MAIN_CONTAINER = 'h5p-goals-assessment-page';
+  var MAIN_CONTAINER = 'h5p-goals-assessment-page h5p-theme';
 
   /**
    * Helper for enabling tabbing
