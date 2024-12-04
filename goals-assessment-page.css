@@ -7,7 +7,7 @@
 .legend {
   padding: 0.5em;
   border: 0.042em solid #ccc;
-  background: #eee;
+  background: var(--h5p-theme-alternative-light);
   margin-bottom: 1em;
 }
 
@@ -87,26 +87,26 @@
 /* Active state */
 .legend .rating.low:before,
 .rating-container .rating.low[aria-checked="true"]:before {
-  background-color: #cc3636;
-  color: #fff;
-  border-color: #cc3636;
+  color: var(--h5p-theme-feedback-incorrect-secondary);
+  background-color: var(--h5p-theme-feedback-incorrect-main);
+  border-color: var(--h5p-theme-feedback-incorrect-third);
 }
 .legend .rating.mid:before,
 .rating-container .rating.mid[aria-checked="true"]:before {
-  background-color: #d48d11;
-  color: #fff;
-  border-color: #d48d11;
+  color: var(--h5p-theme-feedback-neutral-secondary);
+  background-color: var(--h5p-theme-feedback-neutral-main);
+  border-color: var(--h5p-theme-feedback-neutral-third);
 }
 .legend .rating.high:before,
 .rating-container .rating.high[aria-checked="true"]:before {
-  background-color: #5bb24d;
-  color: #fff;
-  border-color: #5bb24d;
+  color: var(--h5p-theme-feedback-correct-secondary);
+  background-color: var(--h5p-theme-feedback-correct-main);
+  border-color: var(--h5p-theme-feedback-correct-third);
 }
 
 .goals-assessment-view .goals-header {
   padding: 0 0.5em 0.5em 0.5em;
-  border-bottom: 1px solid #ccc;
+  border-bottom: solid 1px var(--h5p-theme-stroke-1);
   position: relative;
   font-weight: bold;
 }
@@ -131,8 +131,8 @@
   margin: 0;
   padding: 0;
   padding: 0.5em;
-  border-bottom: 0.042em solid #ccc;
-  color: #333;
+  border-bottom: solid 1px var(--h5p-theme-stroke-1);
+  color: var(--h5p-theme-text-third);
 }
 
 .goals-assessment-view .goal:first-child {
