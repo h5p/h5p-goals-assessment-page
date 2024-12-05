@@ -1,12 +1,10 @@
 .h5p-goals-assessment-page {
-  padding: 0.5em 1em;
-  margin-bottom: 1em;
 }
 
 /* Legend */
 .legend {
   padding: 0.5em;
-  border: 0.042em solid #ccc;
+  border: 0.042em solid var(--h5p-theme-stroke-1);
   background: var(--h5p-theme-alternative-light);
   margin-bottom: 1em;
 }
@@ -69,17 +67,17 @@
 
 /* Hover effects */
 .rating-container .rating.low:hover:before {
-  background-color: #fff;
+  background-color: var(--h5p-theme-ui-base);
   color: #cc3636;
   border-color: #cc3636;
 }
 .rating-container .rating.mid:hover:before {
-  background-color: #fff;
+  background-color: var(--h5p-theme-ui-base);
   color: #d48d11;
   border-color: #d48d11;
 }
 .rating-container .rating.high:hover:before {
-  background-color: #fff;
+  background-color: var(--h5p-theme-ui-base);
   color: #5bb24d;
   border-color: #5bb24d;
 }
