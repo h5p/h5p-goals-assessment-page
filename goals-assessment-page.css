@@ -3,14 +3,16 @@
 
 /* Legend */
 .legend {
-  padding: 0.5em;
+  padding: var(--h5p-theme-spacing-s);
   border: 0.042em solid var(--h5p-theme-stroke-1);
   background: var(--h5p-theme-alternative-light);
-  margin-bottom: 1em;
+  margin-bottom: var(--h5p-theme-spacing-s);
+  font-size: var(--h5p-theme-font-size-s);
 }
 
 .legend-header {
-  font-size: 1em;
+  font-size: var(--h5p-theme-font-size-s);
+  font-weight: 600;
   padding-left: 0.6em
 }
 
@@ -24,8 +26,7 @@
 
 .rating {
   display: inline-block;
-  font-size: 0.9em;
-  color: #666;
+  color: var(--h5p-theme-text-third);
   margin-right: 0.5em;
 }
 .legend .rating {
@@ -42,10 +43,10 @@
   text-align: center;
   display: inline-block;
 
-  background-color: #dddddd;
-  color: #000000;
-  border: 0.042em solid #c6c6c6;
-  border-radius: 0.084em;
+  background-color: var(--h5p-theme-ui-base);
+  color: var(--h5p-theme-text-third);
+  border: 1px solid var(--h5p-theme-stroke-1);
+  border-radius: var(--h5p-theme-border-radius-medium);
 }
 .rating.low:before {
   content: '\f006';
