@@ -13,7 +13,7 @@
 .legend-header {
   font-size: var(--h5p-theme-font-size-s);
   font-weight: 600;
-  padding-left: 0.6em
+  padding-left: calc(var(--h5p-theme-spacing-s)*0.6);
 }
 
 .ratings {
@@ -27,19 +27,19 @@
 .rating {
   display: inline-block;
   color: var(--h5p-theme-text-third);
-  margin-right: 0.5em;
+  margin-right: var(--h5p-theme-spacing-xxs);
 }
 .legend .rating {
-  margin: 0.3em 0 0.3em 0.7em;
+  margin: calc(var(--h5p-theme-spacing-s)*0.3) 0 calc(var(--h5p-theme-spacing-s)*0.3) calc(var(--h5p-theme-spacing-s)*0.7);
 }
 .legend .rating:before {
-  margin-right: 0.5em;
+  margin-right: var(--h5p-theme-spacing-xxs);
 }
 
 .rating:before {
   font-family: H5PFontAwesome4;
-  width: 1.6em;
-  height: 1.6em;
+  width: calc(var(--h5p-theme-spacing-s)*1.6);
+  height: calc(var(--h5p-theme-spacing-s)*1.6);
   text-align: center;
   display: inline-block;
 
@@ -69,18 +69,18 @@
 /* Hover effects */
 .rating-container .rating.low:hover:before {
   background-color: var(--h5p-theme-ui-base);
-  color: #cc3636;
-  border-color: #cc3636;
+  color: var(--h5p-theme-feedback-incorrect-main);
+  border-color: var(--h5p-theme-feedback-incorrect-main);
 }
 .rating-container .rating.mid:hover:before {
   background-color: var(--h5p-theme-ui-base);
-  color: #d48d11;
-  border-color: #d48d11;
+  color: var(--h5p-theme-feedback-neutral-main);
+  border-color: var(--h5p-theme-feedback-neutral-main);
 }
 .rating-container .rating.high:hover:before {
   background-color: var(--h5p-theme-ui-base);
-  color: #5bb24d;
-  border-color: #5bb24d;
+  color: var(--h5p-theme-feedback-correct-main);
+  border-color: var(--h5p-theme-feedback-correct-main);
 }
 
 /* Active state */
@@ -104,7 +104,7 @@
 }
 
 .goals-assessment-view .goals-header {
-  padding: 0 0.5em 0.5em 0.5em;
+  padding: 0 var(--h5p-theme-spacing-xxs) var(--h5p-theme-spacing-xxs) var(--h5p-theme-spacing-xxs);
   border-bottom: solid 1px var(--h5p-theme-stroke-1);
   position: relative;
   font-weight: bold;
@@ -129,13 +129,13 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  padding: 0.5em;
+  padding: var(--h5p-theme-spacing-xxs);
   border-bottom: solid 1px var(--h5p-theme-stroke-1);
   color: var(--h5p-theme-text-third);
 }
 
 .goals-assessment-view .goal:first-child {
-  padding-top: 1em;
+  padding-top: var(--h5p-theme-spacing-s);
 }
 
 .goals-assessment-view .goal-name {
@@ -152,13 +152,13 @@
 }
 
 .h5p-goals-assessment-page .goals-assessment-title {
-  padding: 0.5em 0;
-  margin-bottom: 0.5em;
-  font-size: 18px;
-  border-bottom: 1px solid #ccc;
-  color: #333;
+  padding: var(--h5p-theme-spacing-xxs) 0;
+  margin-bottom: var(--h5p-theme-spacing-xxs);
+  font-size: var(--h5p-theme-font-size-l);
+  border-bottom: 1px solid var(--h5p-theme-stroke-1);
+  color: var(--h5p-theme-text-third);
 }
 
 .h5p-goals-assessment-page .goals-assessment-description {
-  padding: 1em 0em;
+  padding: var(--h5p-theme-spacing-s) 0em;
 }
