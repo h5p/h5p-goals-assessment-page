@@ -38,8 +38,8 @@
 
 .rating:before {
   font-family: H5PFontAwesome4;
-  width: calc(var(--h5p-theme-spacing-s)*1.6);
-  height: calc(var(--h5p-theme-spacing-s)*1.6);
+  width: calc(1em * 1.6);
+  height: calc(1em * 1.6);
   text-align: center;
   display: inline-block;
 
