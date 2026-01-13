@@ -1,0 +1,50 @@
+{
+  "semantics": [
+    {
+      "label": "Descriere",
+      "description": "Descrierea paginii de evaluare a obiectivelor.",
+      "default": "Evaluează obiectivele pe care le-ai ales în pagina de obiective."
+    },
+    {
+      "label": "Text pentru evaluare scăzută",
+      "description": "Text pentru cea mai slabă evaluare.",
+      "default": "Am învățat puțin"
+    },
+    {
+      "label": "Text pentru evaluare medie",
+      "description": "Text pentru evaluarea de mijloc.",
+      "default": "Am învățat ceva"
+    },
+    {
+      "label": "Text pentru evaluare ridicată",
+      "description": "Text pentru o evaluare excelentă.",
+      "default": "Am învățat mult"
+    },
+    {
+      "label": "Text pentru lipsa obiectivelor",
+      "description": "Text de feedback atunci când nu au fost create obiective.",
+      "default": "Nu ați ales încă niciun obiectiv."
+    },
+    {
+      "label": "Etichetă pentru textul de ajutor",
+      "description": "Etichetă pentru afișarea de informații suplimentare utile utilizatorului.",
+      "default": "Mai multe informații"
+    },
+    {
+      "label": "Completați informații suplimentare de ajutor",
+      "description": "Aici puteți completa informații suplimentare utile pentru utilizator."
+    },
+    {
+      "label": "Antet legendă",
+      "default": "Evaluări posibile:"
+    },
+    {
+      "label": "Antet obiective",
+      "default": "Obiective"
+    },
+    {
+      "label": "Antet evaluare",
+      "default": "Evaluare"
+    }
+  ]
+}
